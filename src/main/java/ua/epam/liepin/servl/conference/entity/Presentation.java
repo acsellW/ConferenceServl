@@ -1,5 +1,7 @@
 package ua.epam.liepin.servl.conference.entity;
 
+import java.util.Objects;
+
 public class Presentation {
     private int id;
     private String title;
@@ -64,5 +66,18 @@ public class Presentation {
 
     public void setPlace(String place) {
         this.place = place;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Presentation that = (Presentation) o;
+        return id == that.id;
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(id);
     }
 }

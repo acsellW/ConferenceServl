@@ -1,6 +1,5 @@
 package ua.epam.liepin.servl.conference.entity;
 
-import java.time.LocalDate;
 import java.util.List;
 import java.util.Objects;
 
@@ -9,7 +8,6 @@ public class User {
     private String username;
     private String email;
     private String password;
-    private LocalDate regDate;
     private Role role;
     private String name;
     private String surname;
@@ -17,12 +15,10 @@ public class User {
 
     public User() { }
 
-    public User(String username, String email, String password, LocalDate regDate, Role role, String name, String surname) {
-        this.username = username;
+    public User(String email, String password, Role roleUser, String name, String surname) {
         this.email = email;
         this.password = password;
-        this.regDate = regDate;
-        this.role = role;
+        this.role = roleUser;
         this.name = name;
         this.surname = surname;
     }
@@ -33,14 +29,6 @@ public class User {
 
     public void setId(int id) {
         this.id = id;
-    }
-
-    public String getUsername() {
-        return username;
-    }
-
-    public void setUsername(String username) {
-        this.username = username;
     }
 
     public String getEmail() {

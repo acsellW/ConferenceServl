@@ -6,10 +6,8 @@ import ua.epam.liepin.servl.conference.factory.CommandFactory;
 import java.io.*;
 import javax.servlet.ServletException;
 import javax.servlet.http.*;
-import javax.servlet.annotation.*;
 
-@WebServlet(name = "helloServlet", value = "/hello-servlet")
-public class PageServlet extends HttpServlet {
+public class PageControllerServlet extends HttpServlet {
     private static final CommandFactory COMMAND_FACTORY = CommandFactory.getCommandFactory();
 
     @Override
@@ -28,4 +26,5 @@ public class PageServlet extends HttpServlet {
         String path = command.execute(req);
         req.getRequestDispatcher(path).forward(req, resp);
     }
+
 }

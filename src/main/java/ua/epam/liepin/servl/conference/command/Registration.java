@@ -18,20 +18,20 @@ public class Registration implements Command {
     @Override
     public String execute(HttpServletRequest request) {
         String path = "401.jsp";
-        String firstName = request.getParameter("firstName");
-        String lastName = request.getParameter("lastName");
+        String name = request.getParameter("name");
+        String surname = request.getParameter("surname");
         String email = request.getParameter("email");
         String password = request.getParameter("password");
-        if (checkParameters(firstName, lastName, email, password)) {
-            userService.createUser(email, password, firstName, lastName);
+        if (checkParameters(name, surname, email, password)) {
+            userService.createUser(email, password, name, surname);
             path = "login.jsp";
         }
         return path;
     }
 
-    private boolean checkParameters(String firstName, String lastName, String email, String password) {
-        boolean first = stringValidator.checkName(firstName);
-        boolean last = stringValidator.checkName(lastName);
+    private boolean checkParameters(String name, String surname, String email, String password) {
+        boolean first = stringValidator.checkName(name);
+        boolean last = stringValidator.checkName(surname);
         boolean mail = stringValidator.checkEmail(email);
         boolean pass = stringValidator.checkPassword(password);
         return first && last && mail && pass;

@@ -33,7 +33,7 @@ public class Login implements Command {
         } else if (user.getRole().equals(Role.ROLE_SPEAKER)) {
             request.getSession().setAttribute(Constants.USER, user);
             request.getSession().setAttribute(Constants.ROLE, user.getRole());
-            path = "librarian/cabinet";
+            path = "speaker/cabinet";
         } else if (user.getRole().equals(Role.ROLE_ADMIN)) {
             request.getSession().setAttribute(Constants.USER, user);
             request.getSession().setAttribute(Constants.ROLE, user.getRole());

@@ -23,7 +23,7 @@ public class AuthenticationFilter implements Filter {
         String path = httpServletRequest.getRequestURL().toString();
         Role currentRole = (Role) httpServletRequest.getSession().getAttribute(Constants.ROLE);
         if (currentRole == null) {
-            httpServletResponse.sendRedirect("redirect: /api/login");
+            httpServletResponse.sendRedirect("redirect: /login");
         } else if (path.contains("admin/") && currentRole.equals(Role.ROLE_ADMIN)) {
             filterChain.doFilter(servletRequest, servletResponse);
         } else if (path.contains("speaker/") && currentRole.equals(Role.ROLE_SPEAKER)) {
@@ -31,7 +31,7 @@ public class AuthenticationFilter implements Filter {
         } else if (path.contains("user/") && currentRole.equals(Role.ROLE_USER)) {
             filterChain.doFilter(servletRequest, servletResponse);
         } else {
-            httpServletResponse.sendRedirect("/api/403");
+            httpServletResponse.sendRedirect("/403");
         }
     }
 

@@ -6,18 +6,18 @@ public class Presentation {
     private int id;
     private String title;
     private String description;
-    private User speaker;
+    private int conferenceId;
+    private int speakerId;
     private boolean status;
-    private String place;
 
     public Presentation() { }
 
-    public Presentation(String title, String description, User speaker, boolean status, String place) {
+    public Presentation(String title, String description, int conferenceId, int speakerId, boolean status) {
         this.title = title;
         this.description = description;
-        this.speaker = speaker;
+        this.conferenceId = conferenceId;
+        this.speakerId = speakerId;
         this.status = status;
-        this.place = place;
     }
 
     public int getId() {
@@ -44,12 +44,20 @@ public class Presentation {
         this.description = description;
     }
 
-    public User getSpeaker() {
-        return speaker;
+    public int getConferenceId() {
+        return conferenceId;
     }
 
-    public void setSpeaker(User speaker) {
-        this.speaker = speaker;
+    public void setConferenceId(int conferenceId) {
+        this.conferenceId = conferenceId;
+    }
+
+    public int getSpeakerId() {
+        return speakerId;
+    }
+
+    public void setSpeakerId(int speakerId) {
+        this.speakerId = speakerId;
     }
 
     public boolean isStatus() {
@@ -58,14 +66,6 @@ public class Presentation {
 
     public void setStatus(boolean status) {
         this.status = status;
-    }
-
-    public String getPlace() {
-        return place;
-    }
-
-    public void setPlace(String place) {
-        this.place = place;
     }
 
     @Override

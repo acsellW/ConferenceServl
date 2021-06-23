@@ -21,8 +21,7 @@
                         <button class="btn btn-primary" type="submit"><fmt:message key="logout"/></button>
                     </form>
                 </li>
-
-            </ul>/d
+            </ul>
         </nav>
     </div>
 </header>

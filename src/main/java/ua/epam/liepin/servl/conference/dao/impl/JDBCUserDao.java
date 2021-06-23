@@ -90,8 +90,15 @@ public class JDBCUserDao implements UserDao {
     }
 
     @Override
-    public void setConferenceToUser(User user, Conference order) {
-
+    public void setConferenceToUser(User user, Conference conference) {
+        try (PreparedStatement ps = connection.prepareStatement("INSERT INTO user_has_conference (user_id, conference_id, is_present) VALUES (?,?,?)")) {
+            ps.setInt(1, user.getId());
+            ps.setInt(2, conference.getId());
+            ps.setBoolean(3, false);
+            ps.execute();
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
     }
 
     @Override

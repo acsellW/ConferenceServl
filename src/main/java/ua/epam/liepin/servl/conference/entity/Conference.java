@@ -8,7 +8,7 @@ public class Conference {
     private int id;
     private String title;
     private String description;
-    private User creator;
+    private int creatorId;
     private LocalDate date;
     private Status status;
     private String place;
@@ -18,10 +18,10 @@ public class Conference {
 
     public Conference() {}
 
-    public Conference(String title, String description, User creator, LocalDate date, Status status, String place) {
+    public Conference(String title, String description, int creatorId, LocalDate date, Status status, String place) {
         this.title = title;
         this.description = description;
-        this.creator = creator;
+        this.creatorId = creatorId;
         this.date = date;
         this.status = status;
         this.place = place;
@@ -39,8 +39,8 @@ public class Conference {
         this.description = description;
     }
 
-    public void setCreator(User creator) {
-        this.creator = creator;
+    public void setCreator(int creator) {
+        this.creatorId = creatorId;
     }
 
     public void setDate(LocalDate date) {
@@ -75,8 +75,8 @@ public class Conference {
         return description;
     }
 
-    public User getCreator() {
-        return creator;
+    public int getCreator() {
+        return creatorId;
     }
 
     public LocalDate getDate() {

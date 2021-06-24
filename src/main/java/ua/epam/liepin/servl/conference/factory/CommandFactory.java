@@ -28,6 +28,10 @@ public class CommandFactory {
         commandMap.put("/admin/cabinet", new AdminCabinetCommand());
 
         commandMap.put("/speaker/cabinet", new SpeakerCabinetCommand());
+        commandMap.put("/speaker/view_presentation", new ViewPresentationCommand());
+        commandMap.put("/speaker/view_conferences", new ViewConferencesCommand());
+
+
 
         commandMap.put("/user/cabinet", new UserCabinetCommand());
     }

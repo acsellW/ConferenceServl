@@ -10,6 +10,11 @@ public class Constants {
     public static final String ASC = "asc";
     public static final String DESC = "desc";
 
+    public static final int ONE = 1;
+    public static final int SIX = 6;
+    public static final double ONE_DOUBLE = 1.0;
+    public static final String PAGE = "page";
+
     public static final String FIND_PRESENTATION_SORT_TITLE_ASC = "SELECT SQL_CALC_FOUND_ROWS * FROM presentation ORDER BY title ASC LIMIT ?, ?";
     public static final String FIND_PRESENTATION_SORT_TITLE_DESC = "SELECT SQL_CALC_FOUND_ROWS * FROM presentation ORDER BY title DESC LIMIT ?, ?";
 

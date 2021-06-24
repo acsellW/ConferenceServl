@@ -8,6 +8,7 @@ import ua.epam.liepin.servl.conference.entity.User;
 
 import java.sql.*;
 import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -26,14 +27,12 @@ public class JDBCConferenceDao implements ConferenceDao {
     @Override
     public void create(Conference entity) {
 
-        try (PreparedStatement ps = connection.prepareStatement("INSERT INTO conference (id, title, description, creator_id, date, status, place) VALUES (?,?,?,?,?)")) {
-            ps.setInt(1, entity.getId());
-            ps.setString(2, entity.getTitle());
-            ps.setString(3, entity.getDescription());
-            ps.setInt(4, entity.getCreator());
-            ps.setDate(5, Date.valueOf(entity.getDate()));
-            ps.setString(6, entity.getStatus().toString());
-            ps.setString(7, entity.getPlace());
+        try (PreparedStatement ps = connection.prepareStatement("INSERT INTO conference (title, description, date, status, place) VALUES (?,?,?,?,?,?)")) {
+            ps.setString(1, entity.getTitle());
+            ps.setString(2, entity.getDescription());
+            ps.setDate(3, Date.valueOf(entity.getDate()));
+            ps.setString(4, entity.getStatus().toString());
+            ps.setString(5, entity.getPlace());
 
             ps.execute();
         } catch (SQLException e) {
@@ -98,7 +97,7 @@ public class JDBCConferenceDao implements ConferenceDao {
             throw new RuntimeException(e);
         }
     }
-
+    @Override
     public void insertUsers(List<User> users, int conferenceId) {
         try (PreparedStatement ps = connection.prepareStatement("INSERT INTO user_has_conference (user_id, conference_id) VALUES (?,?)")) {
             for (User user : users) {
@@ -107,6 +106,35 @@ public class JDBCConferenceDao implements ConferenceDao {
                 ps.setInt(2, conferenceId);
                 ps.execute();
             }
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+    }
+
+    public void insertPresentations(List<Presentation> presentations, int conferenceId) {
+        try (PreparedStatement ps = connection.prepareStatement("UPDATE presentation SET conference_id = ? WHERE id = ?")) {
+            for (Presentation presentation : presentations) {
+                int presentationId = presentation.getId();
+                ps.setInt(1, conferenceId);
+                ps.setInt(2, presentationId);
+                ps.execute();
+            }
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+    }
+
+    @Override
+    public List<Conference> findByTitle(String text) {
+        List<Conference> conferences = new ArrayList<>();
+        try (PreparedStatement ps = connection.prepareStatement("select * from conference where title like ?")) {
+            ps.setString(1, "%" + text + "%");
+            ResultSet resultSet = ps.executeQuery();
+            while (resultSet.next()) {
+                conferences.add((extractFromResultSet(resultSet)));
+            }
+            return conferences;
+
         } catch (SQLException e) {
             throw new RuntimeException(e);
         }
@@ -127,6 +155,21 @@ public class JDBCConferenceDao implements ConferenceDao {
             throw new RuntimeException(e);
         }
         return presentations;
+    }
+
+    @Override
+    public void updateConference(int id, String title, String description, int creatorId, LocalDate date, Status status, String place) {
+        try (PreparedStatement ps = connection.prepareStatement("UPDATE conference SET title = ?, description = ?, date = ?, status = ?, place = ? where id = ?")) {
+            ps.setString(1, title);
+            ps.setString(2, description);
+            ps.setDate(3, Date.valueOf(date));
+            ps.setString(4, status.toString());
+            ps.setString(5, place);
+            ps.setInt(6, id);
+            ps.execute();
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
     }
 
     public List<User> getUsersFromConference(int orderId) {
@@ -165,8 +208,8 @@ public class JDBCConferenceDao implements ConferenceDao {
         conference.setId(resultSet.getInt("id"));
         conference.setTitle(resultSet.getString("title"));
         conference.setDescription(resultSet.getString("description"));
-        conference.setCreator(resultSet.getInt("creator_id"));
-        conference.setDate(LocalDate.parse(resultSet.getString("date")));
+        DateTimeFormatter dtf = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
+        conference.setDate(LocalDate.parse(resultSet.getString("date"), dtf));
         conference.setStatus(Status.valueOf(resultSet.getString("status")));
         conference.setPlace(resultSet.getString("place"));
         conference.setUsers(getUsersFromConference(conference.getId()));
@@ -186,8 +229,8 @@ public class JDBCConferenceDao implements ConferenceDao {
                 conference.setId(resultSet.getInt("id"));
                 conference.setTitle(resultSet.getString("title"));
                 conference.setDescription(resultSet.getString("description"));
-                conference.setCreator(resultSet.getInt("creator_id"));
-                conference.setDate(LocalDate.parse(resultSet.getString("date")));
+                DateTimeFormatter dtf = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
+                conference.setDate(LocalDate.parse(resultSet.getString("date"), dtf));
                 conference.setStatus(Status.valueOf(resultSet.getString("status")));
                 conference.setPlace(resultSet.getString("place"));
 

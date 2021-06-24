@@ -27,7 +27,7 @@ public class JDBCConferenceDao implements ConferenceDao {
     @Override
     public void create(Conference entity) {
 
-        try (PreparedStatement ps = connection.prepareStatement("INSERT INTO conference (title, description, date, status, place) VALUES (?,?,?,?,?,?)")) {
+        try (PreparedStatement ps = connection.prepareStatement("INSERT INTO conference (title, description, date, status, place) VALUES (?,?,?,?,?)")) {
             ps.setString(1, entity.getTitle());
             ps.setString(2, entity.getDescription());
             ps.setDate(3, Date.valueOf(entity.getDate()));
@@ -85,6 +85,8 @@ public class JDBCConferenceDao implements ConferenceDao {
             connection.setTransactionIsolation(Connection.TRANSACTION_SERIALIZABLE);
 
             ps.execute();
+            ps1.execute();
+            ps2.execute();
             connection.commit();
         } catch (SQLException e) {
             throw new RuntimeException(e);
@@ -160,7 +162,7 @@ public class JDBCConferenceDao implements ConferenceDao {
     }
 
     @Override
-    public void updateConference(int id, String title, String description, int creatorId, LocalDate date, Status status, String place) {
+    public void updateConference(int id, String title, String description, LocalDate date, Status status, String place) {
         try (PreparedStatement ps = connection.prepareStatement("UPDATE conference SET title = ?, description = ?, date = ?, status = ?, place = ? where id = ?")) {
             ps.setString(1, title);
             ps.setString(2, description);

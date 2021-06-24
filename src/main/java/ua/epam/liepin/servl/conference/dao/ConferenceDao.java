@@ -11,7 +11,7 @@ import java.util.List;
 public interface ConferenceDao extends GenericDao<Conference> {
     List<Presentation> getPresentationsFromConference(int conferenceId);
 
-    void updateConference (int id, String title, String description, int creatorId, LocalDate date, Status status, String place);
+    void updateConference (int id, String title, String description, LocalDate date, Status status, String place);
 
     List<User> getUsersFromConference(int conferenceId);
     void insertUsers(List<User> users, int conferenceId);

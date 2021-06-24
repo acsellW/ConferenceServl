@@ -72,8 +72,8 @@ public class ConferenceServiceImpl implements ConferenceService {
     }
 
     @Override
-    public void updateConference(int id, String title, String description, int creatorId, LocalDate date, Status status, String place) {
-        conferenceDao.updateConference(id, title, description, creatorId, date, status, place);
+    public void updateConference(int id, String title, String description, LocalDate date, Status status, String place) {
+        conferenceDao.updateConference(id, title, description, date, status, place);
     }
 
     @Override

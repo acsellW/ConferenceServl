@@ -30,6 +30,12 @@ public class CommandFactory {
         commandMap.put("/admin/change_role", new ChangeRole());
         commandMap.put("/admin/edit_user", new EditUser());
         commandMap.put("/admin/delete_user", new UserDelete());
+        commandMap.put("/admin/view_conferences", new ViewConferences());
+        commandMap.put("/admin/edit_conference", new EditConference());
+        commandMap.put("/admin/update_conference", new UpdateConference());
+        commandMap.put("/admin/delete_conference", new ConferenceDelete());
+        commandMap.put("/admin/add_conference", new AddConference());
+        commandMap.put("/admin/add_conference_post", new AddConferencePost());
 
         commandMap.put("/speaker/cabinet", new SpeakerCabinetCommand());
         commandMap.put("/speaker/view_presentation", new ViewPresentationCommand());

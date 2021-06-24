@@ -1,7 +1,7 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
-<fmt:setBundle basename="messages"/>
+<fmt:setBundle basename="resources"/>
 <fmt:setLocale value="${locale}" scope="session"/>
 
 <html lang="${locale}">
@@ -31,31 +31,31 @@
 </header>
 
 <div class="container">
-    <form action="${pageContext.request.contextPath}/admin/update_book" method="POST">
+    <form action="${pageContext.request.contextPath}/admin/update_conference" method="POST">
         <div class="form-group">
             <p><fmt:message key="title"/></p>
-            <input type="text"  name="title" value="${book.title}" />
+            <input type="text"  name="title" value="${conference.title}" />
 
         </div>
         <div class="form-group">
-            <p><fmt:message key="author"/></p>
-            <input type="text"  name="author" value="${book.author}" />
+            <p><fmt:message key="description"/></p>
+            <input type="text"  name="description" value="${conference.description}" />
 
         </div>
         <div class="form-group">
-            <p><fmt:message key="publisher"/> </p>
-            <input type="text"  name="publisher" value="${book.publisher}" />
+            <p><fmt:message key="status"/> </p>
+            <input type="text"  name="status" value="${conference.status}" />
 
         </div>
 
         <div class="form-group">
-            <p><fmt:message key="quantity"/> </p>
-            <input type="number"  name="quantity" value="${book.quantity}" >
+            <p><fmt:message key="place"/> </p>
+            <input type="text"  name="place" value="${conference.place}" >
 
         </div>
-        <input type="hidden" name="id" value="${book.id}">
-        <input type="hidden" name="publishDate" value="${book.publishDate}">
-        <button type="submit" class="btn btn-primary"><fmt:message key="book.edit"/> </button>
+        <input type="hidden" name="id" value="${conference.id}">
+        <input type="hidden" name="date" value="${conference.date}">
+        <button type="submit" class="btn btn-primary"><fmt:message key="conferences.edit"/> </button>
     </form>
 
 </div>

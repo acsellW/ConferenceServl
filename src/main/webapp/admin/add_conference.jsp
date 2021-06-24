@@ -1,7 +1,7 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
-<fmt:setBundle basename="messages"/>
+<fmt:setBundle basename="resources"/>
 <fmt:setLocale value="${locale}" scope="session"/>
 
 <html lang="${locale}">
@@ -30,38 +30,37 @@
     </div>
 </header>
 <div class="container">
-<h2><fmt:message key="book.enter"/></h2>
+<h2><fmt:message key="conference.enter"/></h2>
 <div>
-    <form action="${pageContext.request.contextPath}/admin/addbook_post" method="POST">
+    <form action="${pageContext.request.contextPath}/admin/add_conference_post" method="POST">
         <div class="form-group">
             <p><fmt:message key="title"/></p>
             <input type="text"  name="title" />
 
         </div>
         <div class="form-group">
-            <p><fmt:message key="author"/></p>
-            <input type="text"  name="author" />
+            <p><fmt:message key="description"/></p>
+            <input type="text"  name="description" />
 
         </div>
         <div class="form-group">
-            <p><fmt:message key="publisher"/> </p>
-            <input type="text"  name="publisher" />
+            <p><fmt:message key="conferences.date"/> </p>
+            <input type="date"  name="date" />
 
         </div>
         <div class="form-group">
-            <p><fmt:message key="publish.date"/> </p>
-            <input type="date"  name="publishDate" >
+            <p><fmt:message key="status"/> </p>
+            <input type="text"  name="status" >
 
         </div>
         <div class="form-group">
-            <p><fmt:message key="quantity"/> </p>
-            <input type="number"  name="quantity" >
+            <p><fmt:message key="place"/> </p>
+            <input type="text"  name="place" >
 
         </div>
-        <button type="submit" class="btn btn-primary"><fmt:message key="book.add"/> </button>
+        <button type="submit" class="btn btn-primary"><fmt:message key="conference.add"/> </button>
         </form>
         </div>
-
 </div>
 </body>
 </html>

@@ -29,7 +29,7 @@ public interface ConferenceService {
 
     void delete(int id);
 
-    void updateConference(int id, String title, String description, int creatorId, LocalDate date, Status status, String place);
+    void updateConference(int id, String title, String description, LocalDate date, Status status, String place);
 
     int getNoOfRecords();
 }

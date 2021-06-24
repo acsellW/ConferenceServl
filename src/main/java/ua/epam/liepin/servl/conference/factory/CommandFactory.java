@@ -26,6 +26,10 @@ public class CommandFactory {
         commandMap.put("/403", new AccessDeniedCommand());
 
         commandMap.put("/admin/cabinet", new AdminCabinetCommand());
+        commandMap.put("/admin/view_users", new ViewAllUsers());
+        commandMap.put("/admin/change_role", new ChangeRole());
+        commandMap.put("/admin/edit_user", new EditUser());
+        commandMap.put("/admin/delete_user", new UserDelete());
 
         commandMap.put("/speaker/cabinet", new SpeakerCabinetCommand());
         commandMap.put("/speaker/view_presentation", new ViewPresentationCommand());

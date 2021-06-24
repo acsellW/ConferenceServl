@@ -6,7 +6,7 @@
 
 <html lang="${locale}">
 <head>
-    <title>Admin Cabinet</title>
+    <title>User edit</title>
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/css/bootstrap.min.css" integrity="sha384-TX8t27EcRE3e/ihU7zmQxVncDAy5uIKz4rEkgIXeMed4M0jlfIDPvg6uqKI2xXr2" crossorigin="anonymous">
     <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ho+j7jyWK8fNQe+A12Hb8AhRq26LrZ/JpcUGGOn+Y7RsweNrtN/tE3MoK7ZeZDyx" crossorigin="anonymous"></script>
@@ -23,31 +23,40 @@
                     </form>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="${pageContext.request.contextPath}/admin/view_users"><fmt:message key="user.all"/></a>
+                    <a class="nav-link" href="${pageContext.request.contextPath}/admin/cabinet"><fmt:message key="cabinet"/></a>
                 </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="${pageContext.request.contextPath}/admin/add_conference"><fmt:message key="conference.add"/></a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="${pageContext.request.contextPath}/admin/view_books"><fmt:message key="conferences.all"/></a>
-                </li>
-
             </ul>
         </nav>
     </div>
 </header>
+
 <div class="container">
-    <h2><fmt:message key="login.success"/></h2>
 
-    <h4><fmt:message key="admin"/></h4>
-    <div><c:out value="${user.email}"/></div>
-    <hr>
-    <h4><fmt:message key="name"/></h4>
-    <div><c:out value="${user.name}"/></div>
-    <hr>
-    <h4><fmt:message key="surname"/></h4>
-    <div><c:out value="${user.surname}"/></div>
-
+        <h4><fmt:message key="user"/></h4>
+        <div><c:out value="${user.email}"/></div>
+        <hr>
+        <h4><fmt:message key="name"/></h4>
+        <div><c:out value="${user.name}"/></div>
+        <hr>
+        <h4><fmt:message key="surname"/></h4>
+        <div><c:out value="${user.surname}"/></div>
+        <hr>
+        <h4><fmt:message key="role"/></h4>
+        <div><c:out value="${user.role}"/></div>
+        <hr>
+    <form action="${pageContext.request.contextPath}/admin/change_role" method="POST">
+        <input type="hidden" name="id" value="${user.id}">
+        <input type="hidden" name="role" value="${user.role}">
+        <button type="submit" class="btn btn-primary">
+            <c:if test="${user.role eq 'ROLE_USER'}">
+                <fmt:message key="to.speaker"/>
+            </c:if>
+            <c:if test="${user.role eq 'ROLE_SPEAKER'}">
+                <fmt:message key="to.user"/>
+            </c:if>
+        </button>
+    </form>
 </div>
+
 </body>
 </html>

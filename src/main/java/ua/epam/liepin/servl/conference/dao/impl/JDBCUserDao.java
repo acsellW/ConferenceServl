@@ -66,9 +66,15 @@ public class JDBCUserDao implements UserDao {
 
     @Override
     public void delete(int id) {
-        try (PreparedStatement ps = connection.prepareStatement("DELETE FROM user WHERE id = ?")) {
+        try (PreparedStatement ps = connection.prepareStatement("DELETE FROM user WHERE id = ?");
+             PreparedStatement ps1 = connection.prepareStatement("UPDATE presentation SET speaker_id = null WHERE speaker_id = ?")) {
             ps.setInt(1, id);
+            ps1.setInt(1, id);
+
+            connection.setAutoCommit(false);
+            connection.setTransactionIsolation(Connection.TRANSACTION_SERIALIZABLE);
             ps.execute();
+            connection.commit();
         } catch (SQLException e) {
             throw new RuntimeException(e);
         }
@@ -77,6 +83,22 @@ public class JDBCUserDao implements UserDao {
     @Override
     public List<User> findAll(int offset, int noOfRecords) {
         List<User> users = new ArrayList<>();
+        try (PreparedStatement ps = connection.prepareStatement(
+                "select SQL_CALC_FOUND_ROWS * from user WHERE role != 'ROLE_ADMIN' limit ?,?")) {
+            ps.setInt(1, offset);
+            ps.setInt(2, noOfRecords);
+
+            ResultSet resultSet = ps.executeQuery();
+            while (resultSet.next()) {
+                users.add(extractFromResultSet(resultSet));
+            }
+            resultSet = ps.executeQuery("SELECT FOUND_ROWS()");
+            if (resultSet.next()) {
+                this.noOfRecords = resultSet.getInt(1);
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
         return users;
     }
 
@@ -157,6 +179,12 @@ public class JDBCUserDao implements UserDao {
 
         return user;
     }
+
+    @Override
+    public int getNoOfRecords() {
+        return noOfRecords;
+    }
+
 
     private User extractFromResultSet(ResultSet resultSet) throws SQLException {
 

@@ -68,4 +68,9 @@ public class UserServiceImpl implements UserService {
     public List<User> findAll(int offset, int noOfRecords) {
         return userDao.findAll(offset, noOfRecords);
     }
+
+    @Override
+    public int getNoOfRecords() {
+        return userDao.getNoOfRecords();
+    }
 }

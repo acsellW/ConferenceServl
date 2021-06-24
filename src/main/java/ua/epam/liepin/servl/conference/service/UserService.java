@@ -25,4 +25,6 @@ public interface UserService {
     User getUserByEmailPassword(String email, String password);
 
     List<User> findAll(int offset, int noOfRecords);
+
+    int getNoOfRecords();
 }

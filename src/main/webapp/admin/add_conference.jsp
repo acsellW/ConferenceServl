@@ -1,7 +1,7 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
-<fmt:setBundle basename="resources"/>
+<fmt:setBundle basename="messages"/>
 <fmt:setLocale value="${locale}" scope="session"/>
 
 <html lang="${locale}">
@@ -23,31 +23,47 @@
                     </form>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="${pageContext.request.contextPath}/admin/view_users"><fmt:message key="user.all"/></a>
+                    <a class="nav-link" href="${pageContext.request.contextPath}/admin/cabinet"><fmt:message key="cabinet"/></a>
                 </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="${pageContext.request.contextPath}/admin/add_conference"><fmt:message key="conference.add"/></a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="${pageContext.request.contextPath}/admin/view_books"><fmt:message key="conferences.all"/></a>
-                </li>
-
             </ul>
         </nav>
     </div>
 </header>
 <div class="container">
-    <h2><fmt:message key="login.success"/></h2>
+<h2><fmt:message key="book.enter"/></h2>
+<div>
+    <form action="${pageContext.request.contextPath}/admin/addbook_post" method="POST">
+        <div class="form-group">
+            <p><fmt:message key="title"/></p>
+            <input type="text"  name="title" />
 
-    <h4><fmt:message key="admin"/></h4>
-    <div><c:out value="${user.email}"/></div>
-    <hr>
-    <h4><fmt:message key="name"/></h4>
-    <div><c:out value="${user.name}"/></div>
-    <hr>
-    <h4><fmt:message key="surname"/></h4>
-    <div><c:out value="${user.surname}"/></div>
+        </div>
+        <div class="form-group">
+            <p><fmt:message key="author"/></p>
+            <input type="text"  name="author" />
+
+        </div>
+        <div class="form-group">
+            <p><fmt:message key="publisher"/> </p>
+            <input type="text"  name="publisher" />
+
+        </div>
+        <div class="form-group">
+            <p><fmt:message key="publish.date"/> </p>
+            <input type="date"  name="publishDate" >
+
+        </div>
+        <div class="form-group">
+            <p><fmt:message key="quantity"/> </p>
+            <input type="number"  name="quantity" >
+
+        </div>
+        <button type="submit" class="btn btn-primary"><fmt:message key="book.add"/> </button>
+        </form>
+        </div>
 
 </div>
 </body>
 </html>
+
+

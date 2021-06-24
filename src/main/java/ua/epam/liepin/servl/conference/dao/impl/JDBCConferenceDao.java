@@ -74,10 +74,12 @@ public class JDBCConferenceDao implements ConferenceDao {
     @Override
     public void delete(int id) {
         try (PreparedStatement ps = connection.prepareStatement("UPDATE presentation SET conference_id = null WHERE conference_id = ?");
-             PreparedStatement ps1 = connection.prepareStatement("DELETE FROM conference WHERE id = ?")) {
+             PreparedStatement ps1 = connection.prepareStatement("DELETE FROM conference WHERE id = ?");
+             PreparedStatement ps2 = connection.prepareStatement("DELETE FROM user_has_conference WHERE conference_id = ?")) {
 
             ps.setInt(1, id);
             ps1.setInt(1,id);
+            ps2.setInt(1,id);
 
             connection.setAutoCommit(false);
             connection.setTransactionIsolation(Connection.TRANSACTION_SERIALIZABLE);

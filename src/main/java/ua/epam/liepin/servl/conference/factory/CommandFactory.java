@@ -41,6 +41,7 @@ public class CommandFactory {
         commandMap.put("/admin/add_presentation", new AddPresentation());
         commandMap.put("/admin/add_presentation_post", new AddPresentationPost());
         commandMap.put("/admin/delete_presentation", new PresentationDelete());
+        commandMap.put("/admin/change_speaker", new ChangeSpeaker());
 
 
         commandMap.put("/speaker/cabinet", new SpeakerCabinetCommand());

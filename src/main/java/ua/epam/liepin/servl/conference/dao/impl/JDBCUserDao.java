@@ -138,6 +138,21 @@ public class JDBCUserDao implements UserDao {
     }
 
     @Override
+    public List<User> findSpeakers() {
+        List<User> users = new ArrayList<>();
+        try (PreparedStatement ps = connection.prepareStatement("SELECT * FROM user WHERE role = 'ROLE_SPEAKER'")) {
+            ResultSet resultSet = ps.executeQuery();
+            while (resultSet.next()) {
+                User user = extractFromResultSet(resultSet);
+                users.add(user);
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return users;
+    }
+
+    @Override
     public void changeRoleToSpeaker(int userId) {
         try (PreparedStatement ps = connection.prepareStatement("UPDATE user SET role = ? WHERE id = ?")) {
             ps.setString(1, Role.ROLE_SPEAKER.toString());

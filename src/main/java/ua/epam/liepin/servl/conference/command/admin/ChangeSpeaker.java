@@ -1,37 +1,40 @@
 package ua.epam.liepin.servl.conference.command.admin;
 
+
 import ua.epam.liepin.servl.conference.command.Command;
-import ua.epam.liepin.servl.conference.entity.Conference;
 import ua.epam.liepin.servl.conference.entity.Presentation;
-import ua.epam.liepin.servl.conference.entity.User;
+import ua.epam.liepin.servl.conference.entity.Status;
 import ua.epam.liepin.servl.conference.factory.ServiceFactory;
 import ua.epam.liepin.servl.conference.service.ConferenceService;
-import ua.epam.liepin.servl.conference.service.UserService;
+import ua.epam.liepin.servl.conference.service.PresentationService;
+import ua.epam.liepin.servl.conference.util.StringValidator;
 
 import javax.servlet.http.HttpServletRequest;
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 import java.util.List;
 
-public class ViewConference implements Command {
-    private final ConferenceService conferenceService;
-    private final UserService userService;
+public class ChangeSpeaker implements Command {
 
-    public ViewConference() {
+    private final PresentationService presentationService;
+    private final ConferenceService conferenceService;
+
+    public ChangeSpeaker() {
+        presentationService = ServiceFactory.getInstance().getPresentationService();
         conferenceService = ServiceFactory.getInstance().getConferenceService();
-        userService = ServiceFactory.getInstance().getUserService();
     }
 
     @Override
     public String execute(HttpServletRequest request) {
-
+        String path = "/401.jsp";
+        int speakerId = Integer.parseInt(request.getParameter("speakerId"));
+        int presentationId = Integer.parseInt(request.getParameter("presentationId"));
         int conferenceId = Integer.parseInt(request.getParameter("conferenceId"));
-        Conference conference = conferenceService.findById(conferenceId);
-        request.setAttribute("conference", conference);
-        List<User> speakers = userService.findSpeakers();
-        request.setAttribute("speakers", speakers);
-
+        presentationService.addSpeaker(presentationId, speakerId);
         List<Presentation> presentations = conferenceService.getPresentationsFromConference(conferenceId);
         request.setAttribute("presentations", presentations);
-
-        return "/admin/view_conference.jsp";
+        path = "/admin/view_conference";
+        return path;
     }
+
 }

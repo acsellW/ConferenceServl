@@ -18,6 +18,8 @@ public interface UserService {
 
     void setConferenceToUser(User user, Conference conference);
 
+    List<User> findSpeakers();
+
     void changeRoleToSpeaker(int userId);
 
     void changeRoleToUser(int userId);

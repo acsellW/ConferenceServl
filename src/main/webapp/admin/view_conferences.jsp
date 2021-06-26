@@ -58,7 +58,7 @@
             <td><br><c:out value="${conference.status}"/></td>
             <td>
                 <form  action="${pageContext.request.contextPath}/admin/view_conference" method="POST">
-                    <input type="hidden" name="id" value="${conference.id}" />
+                    <input type="hidden" name="conferenceId" value="${conference.id}" />
                     <button type="submit" class="btn btn-primary">
                         <fmt:message key="view"/>
                     </button>

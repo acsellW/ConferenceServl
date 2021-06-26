@@ -74,7 +74,7 @@ public class JDBCPresentationDao implements PresentationDao {
 
     @Override
     public void updatePresentation(int id, String title, String description, int conferenceId, int speakerId, boolean status) {
-        try (PreparedStatement ps = connection.prepareStatement("UPDATE presentation SET title = ?, description = ?, conferenceId = ?, speakerId = ?, status = ? where id = ?")) {
+        try (PreparedStatement ps = connection.prepareStatement("UPDATE presentation SET title = ?, description = ?, conference_id = ?, speaker_id = ?, status = ? where id = ?")) {
             ps.setString(1, title);
             ps.setString(2, description);
             ps.setInt(3, conferenceId);

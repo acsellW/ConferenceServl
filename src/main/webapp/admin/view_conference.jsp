@@ -53,19 +53,19 @@
 <br>
     <div class="btn-group">
         <form action="${pageContext.request.contextPath}/admin/delete_conference" method="POST">
-            <input type="hidden" name="id" value="${conference.id}">
+            <input type="hidden" name="conferenceId" value="${conference.id}">
             <button type="submit" class="btn btn-danger">
                 <fmt:message key="delete"/>
             </button>
         </form>
         <form  action="${pageContext.request.contextPath}/admin/edit_conference" method="POST">
-            <input type="hidden" name="id" value="${conference.id}" />
+            <input type="hidden" name="conferenceId" value="${conference.id}" />
             <button type="submit" class="btn btn-primary">
                 <fmt:message key="edit"/>
             </button>
         </form>
         <form  action="${pageContext.request.contextPath}/admin/add_presentation" method="POST">
-            <input type="hidden" name="id" value="${conference.id}" />
+            <input type="hidden" name="conferenceId" value="${conference.id}" />
             <button type="submit" class="btn btn-primary">
                 <fmt:message key="presentation.add"/>
             </button>
@@ -95,12 +95,20 @@
             <td><br><c:out value="${presentation.speakerId}"/></td>
             <td><br><c:out value="${presentation.status}"/></td>
             <td>
-                <form  action="${pageContext.request.contextPath}/admin/add_speaker" method="POST">
-                    <input type="hidden" name="id" value="${presentation.id}" />
+                <form action="${pageContext.request.contextPath}/admin/change_speaker" method="POST">
+                    <input type="hidden" name="conferenceId" value="${conference.id}" />
+                    <input type="hidden" name="presentationId" value="${presentation.id}">
+                    <select name="speakerId" class="form-select" aria-label="Default select example">
+                        <option selected>...</option>
+                        <c:forEach items="${speakers}" var="speaker">
+                            <option value="${speaker.id}">${speaker.name} ${speaker.surname}</option>
+                        </c:forEach>
+                    </select>
                     <button type="submit" class="btn btn-primary">
                         <fmt:message key="speaker.add"/>
                     </button>
                 </form>
+
             </td>
             <td>
                 <form action="${pageContext.request.contextPath}/admin/delete_presentation" method="POST">
@@ -108,8 +116,8 @@
                     <input type="hidden" name="presentationId" value="${presentation.id}">
                     <button type="submit" class="btn btn-danger">
                     <fmt:message key="delete"/>
-                </button>
-            </form>
+                    </button>
+                </form>
             </td>
             </c:forEach>
         </tr>

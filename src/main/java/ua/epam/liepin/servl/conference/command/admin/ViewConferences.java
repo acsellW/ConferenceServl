@@ -27,7 +27,6 @@ public class ViewConferences implements Command {
         List<Conference> conferences = conferenceService.findAll((page - Constants.ONE) * recordsPerPage, recordsPerPage);
         int noOfRecords = conferenceService.getNoOfRecords();
         int noOfPages = (int) Math.ceil(noOfRecords * Constants.ONE_DOUBLE / recordsPerPage);
-
         request.setAttribute("conferences", conferences);
         request.setAttribute("noOfPages", noOfPages);
         request.setAttribute("currentPage", page);

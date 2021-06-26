@@ -50,6 +50,11 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
+    public List<User> findSpeakers() {
+        return userDao.findSpeakers();
+    }
+
+    @Override
     public void changeRoleToSpeaker(int userId) {
         userDao.changeRoleToSpeaker(userId);
     }

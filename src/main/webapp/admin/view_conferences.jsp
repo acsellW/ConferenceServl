@@ -42,7 +42,6 @@
         <thead>
         <tr>
             <th><fmt:message key="title"/></th>
-            <th><fmt:message key="description"/></th>
             <th><fmt:message key="conferences.date"/></th>
             <th><fmt:message key="place"/></th>
             <th><fmt:message key="status"/></th>
@@ -54,25 +53,16 @@
         <c:forEach var="conference" items="${conferences}">
         <tr>
             <td><br><c:out value="${conference.title}"/></td>
-            <td><br><c:out value="${conference.description}"/></td>
             <td><br><c:out value="${conference.date}"/></td>
             <td><br><c:out value="${conference.place}"/></td>
             <td><br><c:out value="${conference.status}"/></td>
             <td>
-                <form  action="${pageContext.request.contextPath}/admin/edit_conference" method="POST">
+                <form  action="${pageContext.request.contextPath}/admin/view_conference" method="POST">
                     <input type="hidden" name="id" value="${conference.id}" />
                     <button type="submit" class="btn btn-primary">
-                        <fmt:message key="edit"/>
+                        <fmt:message key="view"/>
                     </button>
                 </form>
-            </td>
-            <td><form action="${pageContext.request.contextPath}/admin/delete_conference" method="POST">
-            <input type="hidden" name="id" value="${conference.id}">
-                <button type="submit" class="btn btn-danger">
-                    <fmt:message key="delete"/>
-                </button>
-
-            </form>
             </td>
 
             </c:forEach>

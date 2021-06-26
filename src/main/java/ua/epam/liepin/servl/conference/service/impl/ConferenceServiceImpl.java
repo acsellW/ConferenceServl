@@ -42,6 +42,11 @@ public class ConferenceServiceImpl implements ConferenceService {
     }
 
     @Override
+    public List<Conference> findAll(int offset, int noOfRecords, String sort, String sortDir) {
+        return conferenceDao.findAll(offset, noOfRecords, sort, sortDir);
+    }
+
+    @Override
     public List<Conference> findByTitle(String text) {
         return conferenceDao.findByTitle(text);
     }
@@ -59,6 +64,10 @@ public class ConferenceServiceImpl implements ConferenceService {
     @Override
     public void insertUsers(List<User> users, int conferenceId) {
         conferenceDao.insertUsers(users, conferenceId);
+    }
+    @Override
+    public void insertUser(User user, int conferenceId) {
+        conferenceDao.insertUser(user, conferenceId);
     }
 
     @Override

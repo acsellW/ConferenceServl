@@ -18,7 +18,7 @@ public class JDBCPresentationDao implements PresentationDao {
 
     @Override
     public void create(Presentation entity) {
-        try (PreparedStatement ps = connection.prepareStatement("INSERT INTO presentation (title, description, conferenceId, speakerId, status) VALUES (?,?,?,?,?)")) {
+        try (PreparedStatement ps = connection.prepareStatement("INSERT INTO presentation (title, description, conference_id, speaker_id, status) VALUES (?,?,?,?,?)")) {
 
             ps.setString(1, entity.getTitle());
             ps.setString(2, entity.getDescription());

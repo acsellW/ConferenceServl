@@ -32,6 +32,6 @@ public class ViewPresentationCommand implements Command {
         request.setAttribute("noOfPages", noOfPages);
         request.setAttribute("currentPage", page);
 
-        return "/speaker/view_presentation.jsp";
+        return "/speaker/view_conferences.jsp";
     }
 }

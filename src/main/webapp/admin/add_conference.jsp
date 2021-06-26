@@ -48,11 +48,19 @@
             <input type="date"  name="date" />
 
         </div>
-        <div class="form-group">
+        <div>
             <p><fmt:message key="status"/> </p>
-            <input type="text"  name="status" >
-
+            <select name="status" class="form-select" aria-label="Default select example">
+                <option selected>...</option>
+                <option value="STATUS_HELD"><fmt:message key="held"/></option>
+                <option value="STATUS_PLANED"><fmt:message key="planned"/></option>
+            </select>
         </div>
+<%--        <div class="form-group">--%>
+<%--            <p><fmt:message key="status"/> </p>--%>
+<%--            <input type="text"  name="status" >--%>
+
+<%--        </div>--%>
         <div class="form-group">
             <p><fmt:message key="place"/> </p>
             <input type="text"  name="place" >

@@ -1,4 +1,5 @@
-package ua.epam.liepin.servl.conference.command.admin;
+package ua.epam.liepin.servl.conference.command.user;
+
 
 import ua.epam.liepin.servl.conference.command.Command;
 import ua.epam.liepin.servl.conference.constant.Constants;
@@ -10,6 +11,7 @@ import javax.servlet.http.HttpServletRequest;
 import java.util.List;
 
 public class ViewConferences implements Command {
+
     private final ConferenceService conferenceService;
 
     public ViewConferences() {
@@ -20,11 +22,20 @@ public class ViewConferences implements Command {
     public String execute(HttpServletRequest request) {
         int page = Constants.ONE;
         int recordsPerPage = Constants.SIX;
+        String sort = Constants.ID;
+        String sortDir = Constants.DESC;
 
         if (request.getParameter(Constants.PAGE) != null) {
             page = Integer.parseInt(request.getParameter(Constants.PAGE));
         }
-        List<Conference> conferences = conferenceService.findAll((page - Constants.ONE) * recordsPerPage, recordsPerPage);
+        if (request.getParameter(Constants.SORT) != null) {
+            sort = request.getParameter(Constants.SORT);
+        }
+        if (request.getParameter(Constants.SORT_DIR) != null) {
+            sortDir = request.getParameter(Constants.SORT_DIR);
+        }
+
+        List<Conference> conferences = conferenceService.findAll((page - Constants.ONE) * recordsPerPage, recordsPerPage, sort, sortDir);
         int noOfRecords = conferenceService.getNoOfRecords();
         int noOfPages = (int) Math.ceil(noOfRecords * Constants.ONE_DOUBLE / recordsPerPage);
 
@@ -32,6 +43,9 @@ public class ViewConferences implements Command {
         request.setAttribute("noOfPages", noOfPages);
         request.setAttribute("currentPage", page);
 
-        return "/admin/view_conferences.jsp";
+        request.setAttribute("sort", sort);
+        request.setAttribute("sortDir", sortDir);
+
+        return "/user/view_conferences.jsp";
     }
 }

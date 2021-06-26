@@ -17,6 +17,8 @@ public interface ConferenceService {
 
     List<Conference> findAll(int offset, int noOfRecords);
 
+    List<Conference> findAll(int offset, int noOfRecords, String sort, String sortDir);
+
     List<Conference> findByTitle(String text);
 
     List<User> getUsersFromConference(int conferenceId);
@@ -24,6 +26,8 @@ public interface ConferenceService {
     List<Presentation> getPresentationsFromConference(int conferenceId);
 
     void insertUsers(List<User> users, int conferenceId);
+
+    void insertUser(User user, int conferenceId);
 
     void insertPresentations(List<Presentation> presentations, int conferenceId);
 

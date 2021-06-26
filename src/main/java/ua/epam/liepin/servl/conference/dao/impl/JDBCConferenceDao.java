@@ -1,5 +1,6 @@
 package ua.epam.liepin.servl.conference.dao.impl;
 
+import ua.epam.liepin.servl.conference.constant.Constants;
 import ua.epam.liepin.servl.conference.dao.ConferenceDao;
 import ua.epam.liepin.servl.conference.entity.Conference;
 import ua.epam.liepin.servl.conference.entity.Presentation;
@@ -8,6 +9,7 @@ import ua.epam.liepin.servl.conference.entity.User;
 
 import java.sql.*;
 import java.time.LocalDate;
+
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.List;
@@ -115,6 +117,17 @@ public class JDBCConferenceDao implements ConferenceDao {
         }
     }
 
+    @Override
+    public void insertUser(User user, int conferenceId) {
+        try (PreparedStatement ps = connection.prepareStatement("INSERT INTO user_has_conference (user_id, conference_id) VALUES (?,?)")) {
+            ps.setInt(1, user.getId());
+            ps.setInt(2, conferenceId);
+            ps.execute();
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+    }
+
     public void insertPresentations(List<Presentation> presentations, int conferenceId) {
         try (PreparedStatement ps = connection.prepareStatement("UPDATE presentation SET conference_id = ? WHERE id = ?")) {
             for (Presentation presentation : presentations) {
@@ -151,8 +164,8 @@ public class JDBCConferenceDao implements ConferenceDao {
             ps.setInt(1, conferenceId);
             ResultSet resultSet = ps.executeQuery();
             while (resultSet.next()) {
-                int userId = resultSet.getInt("user_id");
-                Presentation presentation = jdbcPresentationDao.findById(userId);
+                int presentationId = resultSet.getInt("id");
+                Presentation presentation = jdbcPresentationDao.findById(presentationId);
                 presentations.add(presentation);
             }
         } catch (SQLException e) {
@@ -249,6 +262,56 @@ public class JDBCConferenceDao implements ConferenceDao {
             e.printStackTrace();
         }
         return conferences;
+    }
+
+    public List<Conference> findAll(int offset, int noOfRecords, String sort, String sortDir) {
+        List<Conference> books = new ArrayList<>();
+        String sqlStatement = Constants.FIND_CONFERENCES;
+        if (sortDir.equals(Constants.ASC)) {
+            switch (sort) {
+                case Constants.TITLE:
+                    sqlStatement = Constants.FIND_CONFERENCES_SORT_TITLE_ASC;
+                    break;
+                case Constants.DATE:
+                    sqlStatement = Constants.FIND_CONFERENCES_SORT_DATE_ASC;
+                    break;
+            }
+        } else {
+            switch (sort) {
+                case Constants.TITLE:
+                    sqlStatement = Constants.FIND_CONFERENCES_SORT_TITLE_DESC;
+                    break;
+                case Constants.DATE:
+                    sqlStatement = Constants.FIND_CONFERENCES_SORT_DATE_DESC;
+                    break;
+            }
+        }
+        try (PreparedStatement ps = connection.prepareStatement(sqlStatement)) {
+            ps.setInt(1, offset);
+            ps.setInt(2, noOfRecords);
+
+            ResultSet resultSet = ps.executeQuery();
+            while (resultSet.next()) {
+                Conference conference = new Conference();
+                conference.setId(resultSet.getInt("id"));
+                conference.setTitle(resultSet.getString("title"));
+                conference.setDescription(resultSet.getString("description"));
+                DateTimeFormatter dtf = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
+                System.out.println();
+                conference.setDate(LocalDate.parse(resultSet.getString("date"), dtf));
+                conference.setStatus(Status.valueOf(resultSet.getString("status")));
+                conference.setPlace(resultSet.getString("place"));
+                books.add(conference);
+            }
+
+            resultSet = ps.executeQuery("SELECT FOUND_ROWS()");
+            if (resultSet.next()) {
+                this.noOfRecords = resultSet.getInt(1);
+            }
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+        return books;
     }
 
     public int getNoOfRecords() {

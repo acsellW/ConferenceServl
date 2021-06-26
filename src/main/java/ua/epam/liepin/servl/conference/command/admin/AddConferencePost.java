@@ -34,7 +34,7 @@ public class AddConferencePost implements Command {
 
             LocalDate publishDate = LocalDate.parse(date, DateTimeFormatter.ofPattern("yyyy-MM-dd"));
             conferenceService.create(title, description, publishDate, Status.valueOf(status), place);
-            path = "/admin/cabinet";
+            path = "/admin/view_conferences";
         }
         return path;
     }

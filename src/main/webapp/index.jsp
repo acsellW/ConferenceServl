@@ -20,13 +20,13 @@
                 <li class="nav-item">
                     <a class="nav-link" href="${pageContext.request.contextPath}?locale=en">
                         <fmt:message key="button.english"/>
-                        <%--                        <img src="<c:url value="image/english.jpg"/>" width="30" height="20">--%>
+                                                <img src="<c:url value="image/english.jpg"/>" width="30" height="20">
                     </a>
                 </li>
                 <li class="nav-item">
                     <a class="nav-link" href="${pageContext.request.contextPath}?locale=uk_UA">
-                        <%--                        <img src="<c:url value="image/ukraine.jpg"/>" width="30">--%>
                         <fmt:message key="button.ukrainian"/>
+                                                <img src="<c:url value="image/ukraine.jpg"/>" width="30" alt="">
                     </a>
                 </li>
                 <li class="nav-item">
@@ -39,9 +39,12 @@
         </nav>
     </div>
 </header>
-<div class="container">
-    <h2><fmt:message key="welcome"/></h2>
-</div>
+<main role="main" class="inner cover" align="center">
+    <h1 class="cover-heading"><fmt:message key="welcome"/></h1>
+    <p class="lead">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
+        Risus commodo viverra maecenas accumsan lacus. Vel turpis nunc eget lorem dolor. Vitae sapien pellentesque habitant morbi tristique senectus et netus. Nullam vehicula ipsum a arcu cursus vitae congue.
+    </p>
+</main>
 </body>
 </html>
 

@@ -2,6 +2,7 @@ package ua.epam.liepin.servl.conference.factory;
 
 import ua.epam.liepin.servl.conference.command.*;
 import ua.epam.liepin.servl.conference.command.admin.*;
+import ua.epam.liepin.servl.conference.command.admin.ViewConferences;
 import ua.epam.liepin.servl.conference.command.user.*;
 import ua.epam.liepin.servl.conference.command.speaker.*;
 
@@ -36,14 +37,20 @@ public class CommandFactory {
         commandMap.put("/admin/delete_conference", new ConferenceDelete());
         commandMap.put("/admin/add_conference", new AddConference());
         commandMap.put("/admin/add_conference_post", new AddConferencePost());
+        commandMap.put("/admin/view_conference", new ViewConference());
+        commandMap.put("/admin/add_presentation", new AddPresentation());
+        commandMap.put("/admin/add_presentation_post", new AddPresentationPost());
+        commandMap.put("/admin/delete_presentation", new PresentationDelete());
+
 
         commandMap.put("/speaker/cabinet", new SpeakerCabinetCommand());
         commandMap.put("/speaker/view_presentation", new ViewPresentationCommand());
         commandMap.put("/speaker/view_conferences", new ViewConferencesCommand());
 
-
-
         commandMap.put("/user/cabinet", new UserCabinetCommand());
+        commandMap.put("/user/find", new FindConferences());
+        commandMap.put("/user/view_conferences", new ua.epam.liepin.servl.conference.command.user.ViewConferences());
+        commandMap.put("/user/take_place", new TakePlace());
     }
 
     public static CommandFactory getCommandFactory() {

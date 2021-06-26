@@ -21,6 +21,10 @@
                         <button class="btn btn-primary" type="submit"><fmt:message key="logout"/></button>
                     </form>
                 </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="${pageContext.request.contextPath}/user/view_conferences"><fmt:message key="conferences.all"/></a>
+                </li>
+                </li>
             </ul>
         </nav>
     </div>

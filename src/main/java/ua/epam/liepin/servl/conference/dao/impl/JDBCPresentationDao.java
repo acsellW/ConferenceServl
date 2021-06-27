@@ -166,6 +166,22 @@ public class JDBCPresentationDao implements PresentationDao {
         return presentations;
     }
 
+    @Override
+    public List<Presentation> findBySpeaker(int speakerId) {
+        List<Presentation> presentations = new ArrayList<>();
+        try (PreparedStatement ps = connection.prepareStatement("select * from presentation where speaker_id = ?")) {
+            ps.setInt(1, speakerId);
+            ResultSet resultSet = ps.executeQuery();
+            while (resultSet.next()) {
+                presentations.add(mapPresentation(resultSet));
+            }
+            return presentations;
+
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+    }
+
     private Presentation mapPresentation(ResultSet rs) throws SQLException {
         Presentation pres = new Presentation();
         pres.setId(rs.getInt("id"));

@@ -33,30 +33,6 @@
     </div>
 </header>
 
-<div class="container">
-    <h2><c:out value="${conference.title}"/></h2>
-
-    <h4><fmt:message key="description"/></h4>
-    <div><c:out value="${conference.description}"/></div>
-    <hr>
-    <h4><fmt:message key="conferences.date"/></h4>
-    <div><c:out value="${conference.date}"/></div>
-    <hr>
-    <h4><fmt:message key="place"/></h4>
-    <div><c:out value="${conference.place}"/></div>
-    <hr>
-    <h4><fmt:message key="status"/></h4>
-    <div><c:out value="${conference.status}"/></div>
-<br>
-    <div class="btn-group">
-        <form  action="${pageContext.request.contextPath}/speaker/add_presentation" method="POST">
-            <input type="hidden" name="conferenceId" value="${conference.id}" />
-            <button type="submit" class="btn btn-primary">
-                <fmt:message key="presentation.offer"/>
-            </button>
-        </form>
-    </div>
-
 </div>
 <div class="container">
 <h2><fmt:message key="presentation.all"/></h2>
@@ -66,7 +42,6 @@
         <tr>
             <th><fmt:message key="title"/></th>
             <th><fmt:message key="description"/></th>
-            <th><fmt:message key="speaker.id"/></th>
             <th><fmt:message key="status"/></th>
             <th></th>
             <th></th>
@@ -77,15 +52,23 @@
         <tr>
             <td><br><c:out value="${presentation.title}"/></td>
             <td><br><c:out value="${presentation.description}"/></td>
-            <td><br><c:out value="${presentation.speakerId}"/></td>
             <c:choose>
                 <c:when test="${presentation.status=='true'}">
                     <td><br><fmt:message key="presentation.approved"/></td>
                 </c:when>
                 <c:otherwise>
                     <td><br><fmt:message key="presentation.notapproved"/></td>
+                    <td>
+                        <form action="${pageContext.request.contextPath}/speaker/delete_presentation" method="POST">
+                            <input type="hidden" name="presentationId" value="${presentation.id}">
+                            <button type="submit" class="btn btn-danger">
+                                <fmt:message key="delete"/>
+                            </button>
+                        </form>
+                    </td>
                 </c:otherwise>
             </c:choose>
+
             </c:forEach>
         </tr>
         </tbody>
@@ -94,4 +77,3 @@
 </div>
 </body>
 </html>
-

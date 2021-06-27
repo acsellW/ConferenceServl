@@ -54,13 +54,17 @@ public class PresentationServiceImpl implements PresentationService {
     @Override
     public void approvePresentation(int id) {
         Presentation pres = presentationDao.findById(id);
-        presentationDao.updatePresentation(
-                id,
+        presentationDao.updatePresentation(id,
                 pres.getTitle(),
                 pres.getDescription(),
                 pres.getConferenceId(),
                 pres.getSpeakerId(),
                 true);
+    }
+
+    @Override
+    public List<Presentation> findBySpeaker(int speakerId) {
+        return presentationDao.findBySpeaker(speakerId);
     }
 
     @Override
@@ -79,6 +83,8 @@ public class PresentationServiceImpl implements PresentationService {
     public void updatePresentation(int id, String title, String description, int conferenceId, int speakerId, boolean status) {
         presentationDao.updatePresentation(id, title, description, conferenceId, speakerId, status);
     }
+
+
     @Override
     public int getNoOfRecords() {
         return presentationDao.getNoOfRecords();

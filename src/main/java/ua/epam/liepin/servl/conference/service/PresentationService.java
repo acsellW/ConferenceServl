@@ -22,6 +22,8 @@ public interface PresentationService {
 
     void approvePresentation(int id);
 
+    List<Presentation> findBySpeaker(int speakerId);
+
     void addSpeaker(int presentationId, int userId);
 
     void updatePresentation(int id, String title, String description, int conferenceId, int speakerId, boolean status);

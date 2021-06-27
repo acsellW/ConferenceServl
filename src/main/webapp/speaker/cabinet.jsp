@@ -26,7 +26,7 @@
                     <a class="nav-link" href="${pageContext.request.contextPath}/speaker/view_conferences"><fmt:message key="conferences.all"/></a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="${pageContext.request.contextPath}/speaker/view_subscriptions"><fmt:message key="presentation.speaker"/></a>
+                    <a class="nav-link" href="${pageContext.request.contextPath}/speaker/view_presentations"><fmt:message key="presentation.speaker"/></a>
                 </li>
             </ul>
         </nav>

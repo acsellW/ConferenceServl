@@ -12,5 +12,7 @@ public interface PresentationDao extends GenericDao<Presentation> {
 
     List<Presentation> findAll(int offset, int noOfRecords);
 
+    List<Presentation> findBySpeaker(int speakerId);
+
     int getNoOfRecords();
 }

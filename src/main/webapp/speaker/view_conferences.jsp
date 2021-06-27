@@ -52,8 +52,14 @@
             <td><br><c:out value="${conference.date}"/></td>
             <td><br><c:out value="${conference.place}"/></td>
             <td><br><c:out value="${conference.status}"/></td>
-
-
+            <td>
+                <form  action="${pageContext.request.contextPath}/speaker/view_conference" method="POST">
+                    <input type="hidden" name="conferenceId" value="${conference.id}" />
+                    <button type="submit" class="btn btn-primary">
+                        <fmt:message key="view"/>
+                    </button>
+                </form>
+            </td>
         </c:forEach>
         </tr>
         </tbody>

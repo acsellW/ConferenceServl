@@ -26,9 +26,6 @@
                     <a class="nav-link" href="${pageContext.request.contextPath}/admin/view_users"><fmt:message key="user.all"/></a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="${pageContext.request.contextPath}/admin/add_conference"><fmt:message key="conference.add"/></a>
-                </li>
-                <li class="nav-item">
                     <a class="nav-link" href="${pageContext.request.contextPath}/admin/view_conferences"><fmt:message key="conferences.all"/></a>
                 </li>
 

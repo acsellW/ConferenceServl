@@ -23,68 +23,66 @@
                     </form>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="${pageContext.request.contextPath}/admin/cabinet"><fmt:message key="cabinet"/></a>
+                    <a class="nav-link" href="${pageContext.request.contextPath}/speaker/cabinet"><fmt:message key="cabinet"/></a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="${pageContext.request.contextPath}/admin/add_conference"><fmt:message key="conference.add"/></a>
+                    <a class="nav-link" href="${pageContext.request.contextPath}/speaker/view_conferences"><fmt:message key="conferences.all"/></a>
                 </li>
             </ul>
         </nav>
     </div>
 </header>
+
 <div class="container">
-<h2><fmt:message key="conferences.all"/></h2>
+    <h2><c:out value="${conference.title}"/></h2>
+
+    <h4><fmt:message key="description"/></h4>
+    <div><c:out value="${conference.description}"/></div>
+    <hr>
+    <h4><fmt:message key="conferences.date"/></h4>
+    <div><c:out value="${conference.date}"/></div>
+    <hr>
+    <h4><fmt:message key="place"/></h4>
+    <div><c:out value="${conference.place}"/></div>
+    <hr>
+    <h4><fmt:message key="status"/></h4>
+    <div><c:out value="${conference.status}"/></div>
+<br>
+    <div class="btn-group">
+        <form  action="${pageContext.request.contextPath}/speaker/add_presentation" method="POST">
+            <input type="hidden" name="conferenceId" value="${conference.id}" />
+            <button type="submit" class="btn btn-primary">
+                <fmt:message key="presentation.offer"/>
+            </button>
+        </form>
+    </div>
+
+</div>
+<div class="container">
+<h2><fmt:message key="presentation.all"/></h2>
 <div>
     <table class="table table-striped">
         <thead>
         <tr>
             <th><fmt:message key="title"/></th>
-            <th><fmt:message key="conferences.date"/></th>
-            <th><fmt:message key="place"/></th>
+            <th><fmt:message key="description"/></th>
+            <th><fmt:message key="speaker.id"/></th>
             <th><fmt:message key="status"/></th>
             <th></th>
             <th></th>
         </tr>
         </thead>
         <tbody>
-        <c:forEach var="conference" items="${conferences}">
+        <c:forEach var="presentation" items="${presentations}">
         <tr>
-            <td><br><c:out value="${conference.title}"/></td>
-            <td><br><c:out value="${conference.date}"/></td>
-            <td><br><c:out value="${conference.place}"/></td>
-            <td><br><c:out value="${conference.status}"/></td>
-            <td>
-                <form  action="${pageContext.request.contextPath}/admin/view_conference" method="POST">
-                    <input type="hidden" name="conferenceId" value="${conference.id}" />
-                    <button type="submit" class="btn btn-primary">
-                        <fmt:message key="view"/>
-                    </button>
-                </form>
-            </td>
-
+            <td><br><c:out value="${presentation.title}"/></td>
+            <td><br><c:out value="${presentation.description}"/></td>
+            <td><br><c:out value="${presentation.speakerId}"/></td>
+            <td><br><c:out value="${presentation.status}"/></td>
             </c:forEach>
         </tr>
         </tbody>
-
     </table>
-    <c:if test="${currentPage != 1}">
-        <td><a href="/admin/view_conferences?page=${currentPage - 1}"><fmt:message key="previous"/></a></td>
-    </c:if>
-    <c:forEach begin="1" end="${noOfPages}" var="i">
-        <c:choose>
-            <c:when test="${currentPage eq i}">
-                <td>${i}</td>
-            </c:when>
-            <c:otherwise>
-                <td><a href="/admin/view_conferences?page=${i}">${i}</a></td>
-            </c:otherwise>
-        </c:choose>
-    </c:forEach>
-    <c:if test="${currentPage lt noOfPages}">
-        <td><a href="/admin/view_conferences?page=${currentPage + 1}"><fmt:message key="next"/></a></td>
-    </c:if>
-    <br/>
-    <br/>
 </div>
 </div>
 </body>

@@ -15,7 +15,7 @@ public class EditConference implements Command {
 
     @Override
     public String execute(HttpServletRequest request) {
-        String idString = request.getParameter("id");
+        String idString = request.getParameter("conferenceId");
 
         Conference conferenceToEdit = conferenceService.findById(Integer.parseInt(idString));
         request.setAttribute("conference", conferenceToEdit);

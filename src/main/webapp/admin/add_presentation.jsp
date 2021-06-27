@@ -44,11 +44,20 @@
 
         </div>
         <div class="form-group">
-            <p><fmt:message key="speaker"/> </p>
-            <input type="text"  name="speaker" />
-
+            <p><fmt:message key="speaker"/></p>
+            <select name="speakerId" class="form-select" aria-label="Default select example">
+                <c:forEach items="${speakers}" var="speaker">
+                    <option value="${speaker.id}">${speaker.name} ${speaker.surname}</option>
+                </c:forEach>
+            </select>
         </div>
+        <input type="hidden" name="presentationId" value="${presentation.id}">
+<%--        <div class="form-group">--%>
+<%--            <p><fmt:message key="speaker"/> </p>--%>
+<%--            <input type="text"  name="speaker" />--%>
+<%--        </div>--%>
         <input type="hidden" name="conferenceId" value="${id}" />
+        <input type="hidden" name="presentationId" value="${presentation.id}">
         <button type="submit" class="btn btn-primary"><fmt:message key="presentation.add"/> </button>
         </form>
         </div>

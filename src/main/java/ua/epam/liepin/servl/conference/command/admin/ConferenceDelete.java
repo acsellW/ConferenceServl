@@ -16,7 +16,7 @@ public class ConferenceDelete implements Command {
 
     @Override
     public String execute(HttpServletRequest request) {
-        String idString = request.getParameter("id");
+        String idString = request.getParameter("conferenceId");
 
         int id = Integer.parseInt(idString);
         conferenceService.delete(id);

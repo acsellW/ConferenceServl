@@ -20,6 +20,8 @@ public interface PresentationService {
 
     void delete(int id);
 
+    void approvePresentation(int id);
+
     void addSpeaker(int presentationId, int userId);
 
     void updatePresentation(int id, String title, String description, int conferenceId, int speakerId, boolean status);

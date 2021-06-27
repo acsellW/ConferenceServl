@@ -42,11 +42,15 @@ public class CommandFactory {
         commandMap.put("/admin/add_presentation_post", new AddPresentationPost());
         commandMap.put("/admin/delete_presentation", new PresentationDelete());
         commandMap.put("/admin/change_speaker", new ChangeSpeaker());
+        commandMap.put("/admin/approve_speaker", new ApprovePresentation());
 
 
         commandMap.put("/speaker/cabinet", new SpeakerCabinetCommand());
         commandMap.put("/speaker/view_presentation", new ViewPresentationCommand());
         commandMap.put("/speaker/view_conferences", new ViewConferencesCommand());
+        commandMap.put("/speaker/view_conference", new ViewConferenceCommand());
+        commandMap.put("/speaker/add_presentation", new AddPresentationCommand());
+        commandMap.put("/speaker/add_presentation_post", new AddPresentationPostCommand());
 
         commandMap.put("/user/cabinet", new UserCabinetCommand());
         commandMap.put("/user/find", new FindConferences());

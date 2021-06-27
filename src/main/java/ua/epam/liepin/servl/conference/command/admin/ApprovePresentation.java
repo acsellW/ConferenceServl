@@ -2,46 +2,32 @@ package ua.epam.liepin.servl.conference.command.admin;
 
 
 import ua.epam.liepin.servl.conference.command.Command;
-import ua.epam.liepin.servl.conference.entity.Conference;
 import ua.epam.liepin.servl.conference.entity.Presentation;
 import ua.epam.liepin.servl.conference.factory.ServiceFactory;
 import ua.epam.liepin.servl.conference.service.ConferenceService;
 import ua.epam.liepin.servl.conference.service.PresentationService;
-import ua.epam.liepin.servl.conference.util.StringValidator;
 
 import javax.servlet.http.HttpServletRequest;
-import java.util.Enumeration;
 import java.util.List;
 
-public class AddPresentationPost implements Command {
+public class ApprovePresentation implements Command {
 
     private final PresentationService presentationService;
     private final ConferenceService conferenceService;
-    private final StringValidator stringValidator;
 
-    public AddPresentationPost() {
+    public ApprovePresentation() {
         presentationService = ServiceFactory.getInstance().getPresentationService();
         conferenceService = ServiceFactory.getInstance().getConferenceService();
-        stringValidator = StringValidator.getInstance();
     }
 
     @Override
     public String execute(HttpServletRequest request) {
-
-        String path = "/401.jsp";
+        int presentationId = Integer.parseInt(request.getParameter("presentationId"));
         int conferenceId = Integer.parseInt(request.getParameter("conferenceId"));
-        String title = request.getParameter("title");
-        String description = request.getParameter("description");
-        int speakerId = Integer.parseInt(request.getParameter("speakerId"));
-        presentationService.create(title, description, conferenceId, speakerId, true);
-
-        Conference conference = conferenceService.findById(conferenceId);
-        request.setAttribute("conference", conference);
+        presentationService.approvePresentation(presentationId);
         List<Presentation> presentations = conferenceService.getPresentationsFromConference(conferenceId);
         request.setAttribute("presentations", presentations);
-
-        path = "/admin/view_conference";
-        return path;
+        return "/admin/view_conference";
     }
 
 }

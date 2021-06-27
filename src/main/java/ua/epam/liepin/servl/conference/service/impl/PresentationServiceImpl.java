@@ -52,6 +52,18 @@ public class PresentationServiceImpl implements PresentationService {
     }
 
     @Override
+    public void approvePresentation(int id) {
+        Presentation pres = presentationDao.findById(id);
+        presentationDao.updatePresentation(
+                id,
+                pres.getTitle(),
+                pres.getDescription(),
+                pres.getConferenceId(),
+                pres.getSpeakerId(),
+                true);
+    }
+
+    @Override
     public void addSpeaker(int presentationId, int userId) {
         Presentation pres = presentationDao.findById(presentationId);
         presentationDao.updatePresentation(

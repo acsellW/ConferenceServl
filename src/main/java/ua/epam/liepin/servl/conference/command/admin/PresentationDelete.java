@@ -32,6 +32,6 @@ public class PresentationDelete implements Command {
         List<Presentation> presentations = conferenceService.getPresentationsFromConference(conferenceId);
         request.setAttribute("presentations", presentations);
 
-        return "/admin/view_conference.jsp";
+        return "/admin/view_conference";
     }
 }

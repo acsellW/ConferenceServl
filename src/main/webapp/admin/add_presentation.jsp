@@ -51,11 +51,6 @@
                 </c:forEach>
             </select>
         </div>
-        <input type="hidden" name="presentationId" value="${presentation.id}">
-<%--        <div class="form-group">--%>
-<%--            <p><fmt:message key="speaker"/> </p>--%>
-<%--            <input type="text"  name="speaker" />--%>
-<%--        </div>--%>
         <input type="hidden" name="conferenceId" value="${id}" />
         <input type="hidden" name="presentationId" value="${presentation.id}">
         <button type="submit" class="btn btn-primary"><fmt:message key="presentation.add"/> </button>

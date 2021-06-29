@@ -52,7 +52,15 @@
             <td><br><c:out value="${conference.title}"/></td>
             <td><br><c:out value="${conference.date}"/></td>
             <td><br><c:out value="${conference.place}"/></td>
-            <td><br><c:out value="${conference.status}"/></td>
+            <c:choose>
+                <c:when test="${conference.status=='STATUS_PLANED'}">
+                    <td><br><fmt:message key="conference.planed"/></td>
+                </c:when>
+                <c:otherwise>
+                    <td><br><fmt:message key="conference.held"/></td>
+                </c:otherwise>
+            </c:choose>
+
             <td>
                 <form  action="${pageContext.request.contextPath}/admin/view_conference" method="POST">
                     <input type="hidden" name="conferenceId" value="${conference.id}" />

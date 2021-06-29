@@ -86,7 +86,15 @@
             <th><fmt:message key="title"/></th>
             <th><fmt:message key="description"/></th>
             <th><fmt:message key="speaker.id"/></th>
-            <th><fmt:message key="status"/></th>
+            <th><c:choose>
+                <c:when test="${conference.status=='STATUS_PLANED'}">
+            <fmt:message key="conference.planed"/>
+            </c:when>
+            <c:otherwise>
+                <fmt:message key="conference.held"/>
+            </c:otherwise>
+            </c:choose>
+            </th>
             <th></th>
             <th></th>
             <th></th>
@@ -148,4 +156,3 @@
 </div>
 </body>
 </html>
-

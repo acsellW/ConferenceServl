@@ -57,7 +57,6 @@
                 <c:if test="${user.role eq 'ROLE_SPEAKER'}">
                     <fmt:message key="speaker"/>
                 </c:if></td>
-<%--                <c:out value="${user.order.getId() == 0 ? '' : user.order.id}" />--%>
             </td>
                 <td>
                     <form  action="${pageContext.request.contextPath}/admin/edit_user" method="POST">

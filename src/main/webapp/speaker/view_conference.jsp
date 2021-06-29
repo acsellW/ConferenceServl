@@ -46,7 +46,14 @@
     <div><c:out value="${conference.place}"/></div>
     <hr>
     <h4><fmt:message key="status"/></h4>
-    <div><c:out value="${conference.status}"/></div>
+    <c:choose>
+        <c:when test="${conference.status=='STATUS_PLANED'}">
+            <td><br><fmt:message key="conference.planed"/></td>
+        </c:when>
+        <c:otherwise>
+            <td><br><fmt:message key="conference.held"/></td>
+        </c:otherwise>
+    </c:choose>
     <hr>
     <h4><fmt:message key="user.count"/></h4>
     <div><c:out value="${userCount}"/></div>

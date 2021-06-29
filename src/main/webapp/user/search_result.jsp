@@ -54,14 +54,18 @@
                     <td><br><c:out value="${conference.date}"/></td>
                     <td><br><c:out value="${conference.status}"/></td>
                     <td><br><c:out value="${conference.place}"/></td>
-                    <td> <input type="checkbox" name="conferenceId" value="${conference.id}"></td>
+                    <td>
+                        <form action="${pageContext.request.contextPath}/user/view_conference" method="POST">
+                            <input type="hidden" name="conferenceId" value="${conference.id}"/>
+                            <button type="submit" class="btn btn-primary">
+                                <fmt:message key="view"/>
+                            </button>
+                        </form>
+                    </td>
                     </c:forEach>
                 </tr>
                 </tbody>
             </table>
-            <button type="submit" class="btn btn-primary" >
-                <fmt:message key="take.place"/>
-            </button>
         </form>
     </div>
 </div>

@@ -46,8 +46,8 @@
             <p><fmt:message key="status"/> </p>
             <select name="status" class="form-select" aria-label="Default select example">
                 <option selected>...</option>
-                <option value="STATUS_HELD"><fmt:message key="held"/></option>
-                <option value="STATUS_PLANED"><fmt:message key="planned"/></option>
+                <option value="STATUS_HELD"><fmt:message key="conference.held"/></option>
+                <option value="STATUS_PLANED"><fmt:message key="conference.planed"/></option>
             </select>
         </div>
 

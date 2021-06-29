@@ -40,8 +40,6 @@
             <th><fmt:message key="conferences.date"/></th>
             <th><fmt:message key="place"/></th>
             <th><fmt:message key="status"/></th>
-
-
         </tr>
         </thead>
         <tbody>

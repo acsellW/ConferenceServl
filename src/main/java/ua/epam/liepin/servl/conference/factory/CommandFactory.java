@@ -55,7 +55,8 @@ public class CommandFactory {
 
         commandMap.put("/user/cabinet", new UserCabinetCommand());
         commandMap.put("/user/find", new FindConferences());
-        commandMap.put("/user/view_conferences", new ua.epam.liepin.servl.conference.command.user.ViewConferences());
+        commandMap.put("/user/view_conferences", new UserViewConferences());
+        commandMap.put("/user/view_conference", new UserViewConference());
         commandMap.put("/user/take_place", new TakePlace());
     }
 

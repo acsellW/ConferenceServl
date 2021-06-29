@@ -29,6 +29,8 @@ public interface ConferenceService {
 
     void insertUser(User user, int conferenceId);
 
+    boolean checkUserPresence(int userId, int conferenceId);
+
     void insertPresentations(List<Presentation> presentations, int conferenceId);
 
     void delete(int id);

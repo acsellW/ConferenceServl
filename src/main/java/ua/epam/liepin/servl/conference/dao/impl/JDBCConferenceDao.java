@@ -206,18 +206,19 @@ public class JDBCConferenceDao implements ConferenceDao {
     }
 
     @Override
-    public int getLastId() {
-        int lastId = 0;
-        try (PreparedStatement ps = connection.prepareStatement("SELECT coalesce(max(id),0) FROM conference;")) {
+    public boolean checkUserPresence(int userId, int conferenceId) {
+        boolean presence = false;
+        try (PreparedStatement ps = connection.prepareStatement("SELECT EXISTS (SELECT * FROM user_has_conference WHERE user_id = ? AND conference_id = ?)")) {
+            ps.setInt(1, userId);
+            ps.setInt(2, conferenceId);
             ResultSet resultSet = ps.executeQuery();
-
-            while (resultSet.next())
-                lastId = resultSet.getInt(1);
-
+            while (resultSet.next()) {
+                presence = resultSet.getBoolean(1);
+            }
         } catch (SQLException e) {
             throw new RuntimeException(e);
         }
-        return lastId;
+        return presence;
     }
 
     private Conference extractFromResultSet(ResultSet resultSet) throws SQLException {

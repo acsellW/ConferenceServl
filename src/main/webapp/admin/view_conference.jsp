@@ -85,6 +85,7 @@
             <th><fmt:message key="status"/></th>
             <th></th>
             <th></th>
+            <th></th>
         </tr>
         </thead>
         <tbody>

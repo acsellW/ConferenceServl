@@ -4,17 +4,18 @@ package ua.epam.liepin.servl.conference.command.user;
 import ua.epam.liepin.servl.conference.command.Command;
 import ua.epam.liepin.servl.conference.constant.Constants;
 import ua.epam.liepin.servl.conference.entity.Conference;
+import ua.epam.liepin.servl.conference.entity.User;
 import ua.epam.liepin.servl.conference.factory.ServiceFactory;
 import ua.epam.liepin.servl.conference.service.ConferenceService;
 
 import javax.servlet.http.HttpServletRequest;
 import java.util.List;
 
-public class ViewConferences implements Command {
+public class UserViewConferences implements Command {
 
     private final ConferenceService conferenceService;
 
-    public ViewConferences() {
+    public UserViewConferences() {
         conferenceService = ServiceFactory.getInstance().getConferenceService();
     }
 

@@ -152,6 +152,7 @@ public class JDBCUserDao implements UserDao {
         return users;
     }
 
+
     @Override
     public void changeRoleToSpeaker(int userId) {
         try (PreparedStatement ps = connection.prepareStatement("UPDATE user SET role = ? WHERE id = ?")) {

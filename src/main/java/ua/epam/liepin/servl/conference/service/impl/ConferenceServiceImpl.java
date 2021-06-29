@@ -71,6 +71,11 @@ public class ConferenceServiceImpl implements ConferenceService {
     }
 
     @Override
+    public boolean checkUserPresence(int userId, int conferenceId) {
+        return conferenceDao.checkUserPresence(userId, conferenceId);
+    }
+
+    @Override
     public void insertPresentations(List<Presentation> presentations, int conferenceId) {
         conferenceDao.insertPresentations(presentations, conferenceId);
     }

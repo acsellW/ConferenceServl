@@ -169,7 +169,7 @@ public class JDBCPresentationDao implements PresentationDao {
     @Override
     public List<Presentation> findBySpeaker(int speakerId) {
         List<Presentation> presentations = new ArrayList<>();
-        try (PreparedStatement ps = connection.prepareStatement("select * from presentation where speaker_id = ?")) {
+        try (PreparedStatement ps = connection.prepareStatement("SELECT * FROM presentation WHERE speaker_id = ?")) {
             ps.setInt(1, speakerId);
             ResultSet resultSet = ps.executeQuery();
             while (resultSet.next()) {

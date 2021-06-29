@@ -24,7 +24,8 @@ public class TakePlace implements Command {
     @Override
     public String execute(HttpServletRequest request) {
         User user = (User) request.getSession().getAttribute(Constants.USER);
-        String conferenceId = request.getParameter("id");
+        String conferenceId = request.getParameter("conferenceId");
+        System.out.println(conferenceId);
         user = userService.findById(user.getId());
         conferenceService.insertUser(user, Integer.parseInt(conferenceId));
         return "/user/cabinet.jsp";

@@ -158,6 +158,21 @@ public class JDBCConferenceDao implements ConferenceDao {
     }
 
     @Override
+    public int getUserCount(int conferenceId) {
+        int count = -1;
+        try (PreparedStatement ps = connection.prepareStatement("SELECT COUNT(user_id) FROM user_has_conference WHERE conference_id = ?")) {
+            ps.setInt(1, conferenceId);
+            ResultSet resultSet = ps.executeQuery();
+            while (resultSet.next()) {
+                count = resultSet.getInt(1);
+            }
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+        return count;
+    }
+
+    @Override
     public List<Presentation> getPresentationsFromConference(int conferenceId) {
         List<Presentation> presentations = new ArrayList<>();
         try (PreparedStatement ps = connection.prepareStatement("SELECT id FROM presentation WHERE conference_id = ?")) {
@@ -189,10 +204,10 @@ public class JDBCConferenceDao implements ConferenceDao {
         }
     }
 
-    public List<User> getUsersFromConference(int orderId) {
+    public List<User> getUsersFromConference(int conferenceId) {
         List<User> users = new ArrayList<>();
         try (PreparedStatement ps = connection.prepareStatement("SELECT user_id FROM user_has_conference WHERE conference_id = ?")) {
-            ps.setInt(1, orderId);
+            ps.setInt(1, conferenceId);
             ResultSet resultSet = ps.executeQuery();
             while (resultSet.next()) {
                 int userId = resultSet.getInt("user_id");

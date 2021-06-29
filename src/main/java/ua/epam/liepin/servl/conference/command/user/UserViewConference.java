@@ -35,6 +35,9 @@ public class UserViewConference implements Command {
         User curentUser = (User) request.getSession().getAttribute(Constants.USER);
         boolean isPresent = conferenceService.checkUserPresence(curentUser.getId(), conferenceId);
 
+        int userCount = conferenceService.getUserCount(conferenceId);
+        request.setAttribute("userCount", userCount);
+
         UserConferenceDTO conferenceDTO = new UserConferenceDTO(conference, isPresent);
         request.setAttribute("conference", conferenceDTO);
 

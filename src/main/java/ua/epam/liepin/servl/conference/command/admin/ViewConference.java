@@ -29,6 +29,9 @@ public class ViewConference implements Command {
         List<User> speakers = userService.findSpeakers();
         request.setAttribute("speakers", speakers);
 
+        int userCount = conferenceService.getUserCount(conferenceId);
+        request.setAttribute("userCount", userCount);
+
         List<Presentation> presentations = conferenceService.getPresentationsFromConference(conferenceId);
         request.setAttribute("presentations", presentations);
 

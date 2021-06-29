@@ -54,6 +54,9 @@
     <hr>
     <h4><fmt:message key="status"/></h4>
     <div><c:out value="${conference.status}"/></div>
+    <hr>
+    <h4><fmt:message key="user.count"/></h4>
+    <div><c:out value="${userCount}"/></div>
     <br>
 
     <div class="btn-group">

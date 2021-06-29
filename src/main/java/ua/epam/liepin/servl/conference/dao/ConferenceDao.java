@@ -19,6 +19,7 @@ public interface ConferenceDao extends GenericDao<Conference> {
     void insertUser(User user, int conferenceId);
     void insertPresentations(List<Presentation> presentations, int conferenceId);
     List<Conference> findByTitle(String text);
+    int getUserCount (int conferenceId);
 
     List<Conference> findAll(int offset, int noOfRecords, String sort, String sortDir);
 

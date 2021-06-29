@@ -76,6 +76,11 @@ public class ConferenceServiceImpl implements ConferenceService {
     }
 
     @Override
+    public int getUserCount(int conferenceId) {
+        return conferenceDao.getUserCount(conferenceId);
+    }
+
+    @Override
     public void insertPresentations(List<Presentation> presentations, int conferenceId) {
         conferenceDao.insertPresentations(presentations, conferenceId);
     }

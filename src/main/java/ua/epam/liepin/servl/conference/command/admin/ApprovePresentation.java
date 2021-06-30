@@ -29,5 +29,4 @@ public class ApprovePresentation implements Command {
         request.setAttribute("presentations", presentations);
         return "/admin/view_conference";
     }
-
 }

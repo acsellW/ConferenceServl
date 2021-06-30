@@ -26,15 +26,12 @@ public class ChangeSpeaker implements Command {
 
     @Override
     public String execute(HttpServletRequest request) {
-        String path = "/401.jsp";
         int speakerId = Integer.parseInt(request.getParameter("speakerId"));
         int presentationId = Integer.parseInt(request.getParameter("presentationId"));
         int conferenceId = Integer.parseInt(request.getParameter("conferenceId"));
         presentationService.addSpeaker(presentationId, speakerId);
         List<Presentation> presentations = conferenceService.getPresentationsFromConference(conferenceId);
         request.setAttribute("presentations", presentations);
-        path = "/admin/view_conference";
-        return path;
+        return "/admin/view_conference";
     }
-
 }

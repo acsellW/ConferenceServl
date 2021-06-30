@@ -21,19 +21,13 @@ public interface ConferenceService {
 
     List<Conference> findByTitle(String text);
 
-    List<User> getUsersFromConference(int conferenceId);
-
     List<Presentation> getPresentationsFromConference(int conferenceId);
-
-    void insertUsers(List<User> users, int conferenceId);
 
     void insertUser(User user, int conferenceId);
 
     boolean checkUserPresence(int userId, int conferenceId);
 
     int getUserCount (int conferenceId);
-
-    void insertPresentations(List<Presentation> presentations, int conferenceId);
 
     void delete(int id);
 

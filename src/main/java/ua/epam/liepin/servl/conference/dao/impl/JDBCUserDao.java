@@ -1,5 +1,6 @@
 package ua.epam.liepin.servl.conference.dao.impl;
 
+import org.apache.log4j.Logger;
 import org.mindrot.jbcrypt.BCrypt;
 import ua.epam.liepin.servl.conference.dao.UserDao;
 import ua.epam.liepin.servl.conference.entity.Conference;
@@ -13,6 +14,8 @@ import java.util.List;
 public class JDBCUserDao implements UserDao {
     private final Connection connection;
     private int noOfRecords;
+
+    private final static Logger LOGGER = Logger.getLogger(JDBCUserDao.class);
 
     public JDBCUserDao(Connection connection) {
         this.connection = connection;
@@ -30,7 +33,7 @@ public class JDBCUserDao implements UserDao {
 
             ps.execute();
         } catch (SQLException e) {
-            throw new RuntimeException(e);
+            LOGGER.error(e.getMessage());
         }
     }
 
@@ -44,7 +47,7 @@ public class JDBCUserDao implements UserDao {
                 user = extractFromResultSet(resultSet);
             }
         } catch (SQLException e) {
-            e.printStackTrace();
+            LOGGER.error(e.getMessage());
         }
         return user;
     }
@@ -59,7 +62,7 @@ public class JDBCUserDao implements UserDao {
                 users.add(user);
             }
         } catch (SQLException e) {
-            e.printStackTrace();
+            LOGGER.error(e.getMessage());
         }
         return users;
     }
@@ -76,7 +79,7 @@ public class JDBCUserDao implements UserDao {
             ps.execute();
             connection.commit();
         } catch (SQLException e) {
-            throw new RuntimeException(e);
+            LOGGER.error(e.getMessage());
         }
     }
 
@@ -97,44 +100,18 @@ public class JDBCUserDao implements UserDao {
                 this.noOfRecords = resultSet.getInt(1);
             }
         } catch (SQLException e) {
-            e.printStackTrace();
+            LOGGER.error(e.getMessage());
         }
         return users;
     }
 
     @Override
-    public void close() throws Exception {
+    public void close() {
         try {
             connection.close();
         } catch (SQLException e) {
-            throw new RuntimeException(e);
+            LOGGER.error(e.getMessage());
         }
-    }
-
-    @Override
-    public void setConferenceToUser(User user, Conference conference) {
-        try (PreparedStatement ps = connection.prepareStatement("INSERT INTO user_has_conference (user_id, conference_id, is_present) VALUES (?,?,?)")) {
-            ps.setInt(1, user.getId());
-            ps.setInt(2, conference.getId());
-            ps.setBoolean(3, false);
-            ps.execute();
-        } catch (SQLException e) {
-            throw new RuntimeException(e);
-        }
-    }
-
-    @Override
-    public User findAdmin() {
-        User user = null;
-        try (Statement statement = connection.createStatement()) {
-            ResultSet resultSet = statement.executeQuery("SELECT * FROM user WHERE role = 'ROLE_ADMIN'");
-            while (resultSet.next()) {
-                user = extractFromResultSet(resultSet);
-            }
-        } catch (SQLException e) {
-            throw new RuntimeException(e);
-        }
-        return user;
     }
 
     @Override
@@ -147,7 +124,7 @@ public class JDBCUserDao implements UserDao {
                 users.add(user);
             }
         } catch (SQLException e) {
-            e.printStackTrace();
+            LOGGER.error(e.getMessage());
         }
         return users;
     }
@@ -159,9 +136,8 @@ public class JDBCUserDao implements UserDao {
             ps.setString(1, Role.ROLE_SPEAKER.toString());
             ps.setInt(2, userId);
             ps.executeUpdate();
-
         } catch (SQLException e) {
-            throw new RuntimeException(e);
+            LOGGER.error(e.getMessage());
         }
     }
 
@@ -171,9 +147,8 @@ public class JDBCUserDao implements UserDao {
             ps.setString(1, Role.ROLE_USER.toString());
             ps.setInt(2, userId);
             ps.executeUpdate();
-
         } catch (SQLException e) {
-            throw new RuntimeException(e);
+            LOGGER.error(e.getMessage());
         }
     }
 
@@ -187,12 +162,11 @@ public class JDBCUserDao implements UserDao {
                 user = extractFromResultSet(resultSet);
             }
         } catch (SQLException e) {
-            throw new RuntimeException(e);
+            LOGGER.error(e.getMessage());
         }
         if (user != null) {
             if (!BCrypt.checkpw(password, user.getPassword())) user = null;
         }
-
         return user;
     }
 
@@ -200,7 +174,6 @@ public class JDBCUserDao implements UserDao {
     public int getNoOfRecords() {
         return noOfRecords;
     }
-
 
     private User extractFromResultSet(ResultSet resultSet) throws SQLException {
 

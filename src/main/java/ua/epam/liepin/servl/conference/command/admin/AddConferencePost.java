@@ -24,7 +24,6 @@ public class AddConferencePost implements Command {
     @Override
     public String execute(HttpServletRequest request) {
         String path = "/401.jsp";
-        String idString = request.getParameter("id");
         String title = request.getParameter("title");
         String description = request.getParameter("description");
         String date = request.getParameter("date");

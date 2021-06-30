@@ -17,18 +17,14 @@ public class AddPresentationPost implements Command {
 
     private final PresentationService presentationService;
     private final ConferenceService conferenceService;
-    private final StringValidator stringValidator;
 
     public AddPresentationPost() {
         presentationService = ServiceFactory.getInstance().getPresentationService();
         conferenceService = ServiceFactory.getInstance().getConferenceService();
-        stringValidator = StringValidator.getInstance();
     }
 
     @Override
     public String execute(HttpServletRequest request) {
-
-        String path = "/401.jsp";
         int conferenceId = Integer.parseInt(request.getParameter("conferenceId"));
         String title = request.getParameter("title");
         String description = request.getParameter("description");
@@ -40,8 +36,6 @@ public class AddPresentationPost implements Command {
         List<Presentation> presentations = conferenceService.getPresentationsFromConference(conferenceId);
         request.setAttribute("presentations", presentations);
 
-        path = "/admin/view_conference";
-        return path;
+        return "/admin/view_conference";
     }
-
 }

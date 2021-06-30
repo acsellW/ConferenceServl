@@ -14,11 +14,13 @@ public interface ConferenceDao extends GenericDao<Conference> {
     void updateConference (int id, String title, String description, LocalDate date, Status status, String place);
 
     List<User> getUsersFromConference(int conferenceId);
+
     boolean checkUserPresence(int userId, int conferenceId);
-    void insertUsers(List<User> users, int conferenceId);
+
     void insertUser(User user, int conferenceId);
-    void insertPresentations(List<Presentation> presentations, int conferenceId);
+
     List<Conference> findByTitle(String text);
+
     int getUserCount (int conferenceId);
 
     List<Conference> findAll(int offset, int noOfRecords, String sort, String sortDir);

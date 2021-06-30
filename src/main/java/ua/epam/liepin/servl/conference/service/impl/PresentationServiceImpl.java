@@ -42,11 +42,6 @@ public class PresentationServiceImpl implements PresentationService {
     }
 
     @Override
-    public List<Presentation> findByTitle(String text) {
-        return presentationDao.findByTitle(text);
-    }
-
-    @Override
     public void delete(int id) {
         presentationDao.delete(id);
     }

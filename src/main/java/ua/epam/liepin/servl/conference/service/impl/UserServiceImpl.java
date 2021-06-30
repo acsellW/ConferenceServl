@@ -35,21 +35,6 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public List<User> findAllUsers() {
-        return userDao.findAll();
-    }
-
-    @Override
-    public User findAdmin() {
-        return userDao.findAdmin();
-    }
-
-    @Override
-    public void setConferenceToUser(User user, Conference conference) {
-        userDao.setConferenceToUser(user, conference);
-    }
-
-    @Override
     public List<User> findSpeakers() {
         return userDao.findSpeakers();
     }

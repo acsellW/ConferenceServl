@@ -16,8 +16,6 @@ public interface PresentationService {
 
     List<Presentation> findAll(int offset, int noOfRecords, String sort, String sortDir);
 
-    List<Presentation> findByTitle(String text);
-
     void delete(int id);
 
     void approvePresentation(int id);

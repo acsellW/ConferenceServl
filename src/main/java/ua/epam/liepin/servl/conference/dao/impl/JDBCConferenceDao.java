@@ -1,5 +1,6 @@
 package ua.epam.liepin.servl.conference.dao.impl;
 
+import org.apache.log4j.Logger;
 import ua.epam.liepin.servl.conference.constant.Constants;
 import ua.epam.liepin.servl.conference.dao.ConferenceDao;
 import ua.epam.liepin.servl.conference.entity.Conference;
@@ -20,6 +21,8 @@ public class JDBCConferenceDao implements ConferenceDao {
     private final JDBCPresentationDao jdbcPresentationDao;
     private int noOfRecords;
 
+    private final static Logger LOGGER = Logger.getLogger(JDBCConferenceDao.class);
+
     public JDBCConferenceDao(Connection connection) {
         this.connection = connection;
         jdbcUserDao = new JDBCUserDao(this.connection);
@@ -38,7 +41,7 @@ public class JDBCConferenceDao implements ConferenceDao {
 
             ps.execute();
         } catch (SQLException e) {
-            throw new RuntimeException(e);
+            LOGGER.error(e.getMessage());
         }
 
     }
@@ -53,7 +56,7 @@ public class JDBCConferenceDao implements ConferenceDao {
                 conference = extractFromResultSet(resultSet);
             }
         } catch (SQLException e) {
-            throw new RuntimeException(e);
+            LOGGER.error(e.getMessage());
         }
         return conference;
     }
@@ -67,7 +70,7 @@ public class JDBCConferenceDao implements ConferenceDao {
                 conferences.add(extractFromResultSet(resultSet));
             }
         } catch (SQLException e) {
-            e.printStackTrace();
+            LOGGER.error(e.getMessage());
         }
         return conferences;
     }
@@ -91,29 +94,16 @@ public class JDBCConferenceDao implements ConferenceDao {
             ps2.execute();
             connection.commit();
         } catch (SQLException e) {
-            throw new RuntimeException(e);
+            LOGGER.error(e.getMessage());
         }
     }
 
     @Override
-    public void close() throws Exception {
+    public void close() {
         try {
             connection.close();
         } catch (SQLException e) {
-            throw new RuntimeException(e);
-        }
-    }
-    @Override
-    public void insertUsers(List<User> users, int conferenceId) {
-        try (PreparedStatement ps = connection.prepareStatement("INSERT INTO user_has_conference (user_id, conference_id) VALUES (?,?)")) {
-            for (User user : users) {
-                int userId = user.getId();
-                ps.setInt(1, userId);
-                ps.setInt(2, conferenceId);
-                ps.execute();
-            }
-        } catch (SQLException e) {
-            throw new RuntimeException(e);
+            LOGGER.error(e.getMessage());
         }
     }
 
@@ -124,7 +114,7 @@ public class JDBCConferenceDao implements ConferenceDao {
             ps.setInt(2, conferenceId);
             ps.execute();
         } catch (SQLException e) {
-            throw new RuntimeException(e);
+            LOGGER.error(e.getMessage());
         }
     }
 
@@ -137,7 +127,7 @@ public class JDBCConferenceDao implements ConferenceDao {
                 ps.execute();
             }
         } catch (SQLException e) {
-            throw new RuntimeException(e);
+            LOGGER.error(e.getMessage());
         }
     }
 
@@ -150,11 +140,10 @@ public class JDBCConferenceDao implements ConferenceDao {
             while (resultSet.next()) {
                 conferences.add((extractFromResultSet(resultSet)));
             }
-            return conferences;
-
         } catch (SQLException e) {
-            throw new RuntimeException(e);
+            LOGGER.error(e.getMessage());
         }
+        return conferences;
     }
 
     @Override
@@ -167,7 +156,7 @@ public class JDBCConferenceDao implements ConferenceDao {
                 count = resultSet.getInt(1);
             }
         } catch (SQLException e) {
-            throw new RuntimeException(e);
+            LOGGER.error(e.getMessage());
         }
         return count;
     }
@@ -184,7 +173,7 @@ public class JDBCConferenceDao implements ConferenceDao {
                 presentations.add(presentation);
             }
         } catch (SQLException e) {
-            throw new RuntimeException(e);
+            LOGGER.error(e.getMessage());
         }
         return presentations;
     }
@@ -200,7 +189,7 @@ public class JDBCConferenceDao implements ConferenceDao {
             ps.setInt(6, id);
             ps.execute();
         } catch (SQLException e) {
-            throw new RuntimeException(e);
+            LOGGER.error(e.getMessage());
         }
     }
 
@@ -215,7 +204,7 @@ public class JDBCConferenceDao implements ConferenceDao {
                 users.add(user);
             }
         } catch (SQLException e) {
-            throw new RuntimeException(e);
+            LOGGER.error(e.getMessage());
         }
         return users;
     }
@@ -231,7 +220,7 @@ public class JDBCConferenceDao implements ConferenceDao {
                 presence = resultSet.getBoolean(1);
             }
         } catch (SQLException e) {
-            throw new RuntimeException(e);
+            LOGGER.error(e.getMessage());
         }
         return presence;
     }
@@ -275,7 +264,7 @@ public class JDBCConferenceDao implements ConferenceDao {
                 this.noOfRecords = resultSet.getInt(1);
             }
         } catch (SQLException e) {
-            e.printStackTrace();
+            LOGGER.error(e.getMessage());
         }
         return conferences;
     }
@@ -325,7 +314,7 @@ public class JDBCConferenceDao implements ConferenceDao {
                 this.noOfRecords = resultSet.getInt(1);
             }
         } catch (SQLException e) {
-            throw new RuntimeException(e);
+            LOGGER.error(e.getMessage());
         }
         return books;
     }

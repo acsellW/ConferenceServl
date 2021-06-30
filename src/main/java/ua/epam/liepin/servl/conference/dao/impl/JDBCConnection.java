@@ -26,5 +26,4 @@ public class JDBCConnection {
         }
         return dataSource;
     }
-
 }

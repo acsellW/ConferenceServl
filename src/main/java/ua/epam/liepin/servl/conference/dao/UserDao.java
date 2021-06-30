@@ -7,9 +7,6 @@ import ua.epam.liepin.servl.conference.entity.User;
 import java.util.List;
 
 public interface UserDao extends GenericDao<User> {
-    void setConferenceToUser(User user, Conference order);
-
-    User findAdmin();
 
     List<User> findSpeakers();
 

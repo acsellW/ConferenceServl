@@ -1,5 +1,6 @@
 package ua.epam.liepin.servl.conference.dao.impl;
 
+import org.apache.log4j.Logger;
 import ua.epam.liepin.servl.conference.constant.Constants;
 import ua.epam.liepin.servl.conference.dao.PresentationDao;
 import ua.epam.liepin.servl.conference.entity.Presentation;
@@ -11,6 +12,8 @@ import java.util.List;
 public class JDBCPresentationDao implements PresentationDao {
     private final Connection connection;
     private int noOfRecords;
+
+    private final static Logger LOGGER = Logger.getLogger(JDBCPresentationDao.class);
 
     public JDBCPresentationDao(Connection connection) {
         this.connection = connection;
@@ -29,7 +32,7 @@ public class JDBCPresentationDao implements PresentationDao {
             ps.execute();
 
         } catch (SQLException e) {
-            throw new RuntimeException(e);
+            LOGGER.error(e.getMessage());
         }
     }
 
@@ -43,7 +46,7 @@ public class JDBCPresentationDao implements PresentationDao {
                 pres = mapPresentation(resultSet);
             }
         } catch (SQLException e) {
-            throw new RuntimeException(e);
+            LOGGER.error(e.getMessage());
         }
         return pres;
     }
@@ -57,7 +60,7 @@ public class JDBCPresentationDao implements PresentationDao {
                 presentations.add(mapPresentation(resultSet));
             }
         } catch (SQLException e) {
-            throw new RuntimeException(e);
+            LOGGER.error(e.getMessage());
         }
         return presentations;
     }
@@ -68,7 +71,7 @@ public class JDBCPresentationDao implements PresentationDao {
             ps.setInt(1, id);
             ps.execute();
         } catch (SQLException e) {
-            throw new RuntimeException(e);
+            LOGGER.error(e.getMessage());
         }
     }
 
@@ -83,31 +86,15 @@ public class JDBCPresentationDao implements PresentationDao {
             ps.setInt(6, id);
             ps.execute();
         } catch (SQLException e) {
-            throw new RuntimeException(e);
+            LOGGER.error(e.getMessage());
         }
 
-    }
-
-    @Override
-    public List<Presentation> findByTitle(String text) {
-        List<Presentation> presentations = new ArrayList<>();
-        try (PreparedStatement ps = connection.prepareStatement("select * from presentation where title like ?")) {
-            ps.setString(1, "%" + text + "%");
-            ResultSet resultSet = ps.executeQuery();
-            while (resultSet.next()) {
-                presentations.add(mapPresentation(resultSet));
-            }
-            return presentations;
-
-        } catch (SQLException e) {
-            throw new RuntimeException(e);
-        }
     }
 
     @Override
     public List<Presentation> findAll(int offset, int noOfRecords, String sort, String sortDir) {
         List<Presentation> presentations = new ArrayList<>();
-        String sqlStatement = Constants.FIND_PRESENTATION;
+        String sqlStatement;
         if (sortDir.equals(Constants.ASC))
             sqlStatement = Constants.FIND_PRESENTATION_SORT_TITLE_ASC;
         else
@@ -126,7 +113,7 @@ public class JDBCPresentationDao implements PresentationDao {
                 this.noOfRecords = resultSet.getInt(1);
             }
         } catch (SQLException e) {
-            throw new RuntimeException(e);
+            LOGGER.error(e.getMessage());
         }
         return presentations;
     }
@@ -136,11 +123,11 @@ public class JDBCPresentationDao implements PresentationDao {
     }
 
     @Override
-    public void close() throws Exception {
+    public void close() {
         try {
             connection.close();
         } catch (SQLException e) {
-            throw new RuntimeException(e);
+            LOGGER.error(e.getMessage());
         }
     }
 
@@ -161,7 +148,7 @@ public class JDBCPresentationDao implements PresentationDao {
                 this.noOfRecords = resultSet.getInt(1);
             }
         } catch (SQLException e) {
-            throw new RuntimeException(e);
+            LOGGER.error(e.getMessage());
         }
         return presentations;
     }
@@ -175,11 +162,10 @@ public class JDBCPresentationDao implements PresentationDao {
             while (resultSet.next()) {
                 presentations.add(mapPresentation(resultSet));
             }
-            return presentations;
-
         } catch (SQLException e) {
-            throw new RuntimeException(e);
+            LOGGER.error(e.getMessage());
         }
+        return presentations;
     }
 
     private Presentation mapPresentation(ResultSet rs) throws SQLException {

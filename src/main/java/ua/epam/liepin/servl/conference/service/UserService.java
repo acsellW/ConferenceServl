@@ -12,12 +12,6 @@ public interface UserService {
 
     User findById(int userId);
 
-    List<User> findAllUsers();
-
-    User findAdmin();
-
-    void setConferenceToUser(User user, Conference conference);
-
     List<User> findSpeakers();
 
     void changeRoleToSpeaker(int userId);

@@ -29,8 +29,6 @@ public class AddPresentationPostCommand implements Command {
 
     @Override
     public String execute(HttpServletRequest request) {
-
-        String path = "/401.jsp";
         int conferenceId = Integer.parseInt(request.getParameter("conferenceId"));
         String title = request.getParameter("title");
         String description = request.getParameter("description");
@@ -42,8 +40,6 @@ public class AddPresentationPostCommand implements Command {
         List<Presentation> presentations = conferenceService.getPresentationsFromConference(conferenceId);
         request.setAttribute("presentations", presentations);
 
-        path = "/speaker/view_conference";
-        return path;
+        return "/speaker/view_conference";
     }
-
 }

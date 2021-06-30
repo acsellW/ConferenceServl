@@ -19,7 +19,6 @@ public class ConferenceServiceImpl implements ConferenceService {
         conferenceDao = jdbcDaoFactory.createConferenceDao();
     }
 
-
     @Override
     public void create(String title, String description, LocalDate date, Status status, String place) {
         Conference conference = new Conference(title, description, date, status, place);
@@ -52,19 +51,10 @@ public class ConferenceServiceImpl implements ConferenceService {
     }
 
     @Override
-    public List<User> getUsersFromConference(int conferenceId) {
-        return conferenceDao.getUsersFromConference(conferenceId);
-    }
-
-    @Override
     public List<Presentation> getPresentationsFromConference(int conferenceId) {
         return conferenceDao.getPresentationsFromConference(conferenceId);
     }
 
-    @Override
-    public void insertUsers(List<User> users, int conferenceId) {
-        conferenceDao.insertUsers(users, conferenceId);
-    }
     @Override
     public void insertUser(User user, int conferenceId) {
         conferenceDao.insertUser(user, conferenceId);
@@ -78,11 +68,6 @@ public class ConferenceServiceImpl implements ConferenceService {
     @Override
     public int getUserCount(int conferenceId) {
         return conferenceDao.getUserCount(conferenceId);
-    }
-
-    @Override
-    public void insertPresentations(List<Presentation> presentations, int conferenceId) {
-        conferenceDao.insertPresentations(presentations, conferenceId);
     }
 
     @Override

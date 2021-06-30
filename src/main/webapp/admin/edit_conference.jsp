@@ -39,8 +39,7 @@
         </div>
         <div class="form-group">
             <p><fmt:message key="description"/></p>
-            <input type="text"  name="description" value="${conference.description}" />
-
+            <p><textarea rows="10" cols="45" name="description">${conference.description}</textarea></p>
         </div>
         <div>
             <p><fmt:message key="status"/> </p>

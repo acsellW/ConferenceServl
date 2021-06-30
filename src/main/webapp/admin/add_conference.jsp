@@ -40,7 +40,7 @@
         </div>
         <div class="form-group">
             <p><fmt:message key="description"/></p>
-            <input type="text"  name="description" />
+            <p><textarea rows="10" cols="45" name="description"></textarea></p>
 
         </div>
         <div class="form-group">
@@ -55,6 +55,7 @@
                 <option value="STATUS_PLANED"><fmt:message key="conference.planed"/></option>
             </select>
         </div>
+        <br>
         <div class="form-group">
             <p><fmt:message key="place"/> </p>
             <input type="text"  name="place" >

@@ -40,7 +40,7 @@
         </div>
         <div class="form-group">
             <p><fmt:message key="description"/></p>
-            <input type="text"  name="description" />
+            <p><textarea rows="10" cols="45" name="description"></textarea></p>
 
         </div>
         <div class="form-group">
